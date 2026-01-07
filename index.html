@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🎬 Mi Catálogo</title>
     <style>
-        /* RESET Y ESTILOS BASE */
+        /* =========================================== */
+        /* RESET Y OPTIMIZACIONES PARA RENDIMIENTO */
+        /* =========================================== */
         * {
             margin: 0;
             padding: 0;
@@ -16,145 +18,105 @@
         html {
             font-size: 13px;
             height: 100%;
-            -webkit-text-size-adjust: 100%;
         }
         
-        /* FONDO FIJO */
+        /* FONDO SIMPLIFICADO - SIN BLUR PESADO */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             color: white;
             line-height: 1.5;
             min-height: 100vh;
-            padding: 0;
-            margin: 0;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('images/background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            z-index: -2;
-        }
-        
-        /* OVERLAY OSCURO */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(2px);
-            z-index: -1;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('images/background.jpg') center/cover fixed no-repeat;
         }
         
         /* CONTENEDOR PRINCIPAL */
         .app-container {
             min-height: 100vh;
-            padding: 15px;
+            padding: 12px;
             position: relative;
         }
         
-        /* BUSCADOR CRISTAL */
+        /* =========================================== */
+        /* BUSCADOR OPTIMIZADO */
+        /* =========================================== */
         .search-container {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             position: sticky;
-            top: 15px;
+            top: 12px;
             z-index: 90;
         }
         
         #searchInput {
             width: 100%;
-            padding: 14px 18px;
+            padding: 12px 16px;
             font-size: 0.95rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            background: rgba(30, 30, 30, 0.8);
             color: white;
             outline: none;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        }
-        
-        #searchInput::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
         }
         
         #searchInput:focus {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(40, 40, 40, 0.9);
+            border-color: rgba(255, 255, 255, 0.5);
         }
         
-        /* GÉNEROS COMPACTOS CRISTAL */
+        /* =========================================== */
+        /* GÉNEROS - SIN DUPLICADOS */
+        /* =========================================== */
         .genres-container {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            max-height: 130px;
+            max-height: 120px;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            padding: 10px 0;
+            padding: 8px 0;
         }
         
         .genre-btn {
-            padding: 7px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
+            padding: 6px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
             font-size: 0.75rem;
             color: white;
             font-weight: 500;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(40, 40, 40, 0.8);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             flex: 0 0 auto;
-            transition: all 0.3s;
+            transition: all 0.2s;
         }
         
         .genre-btn.active {
-            background: rgba(102, 126, 234, 0.6);
-            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(102, 126, 234, 0.8);
+            border-color: rgba(255, 255, 255, 0.5);
         }
         
-        /* PELÍCULAS 2x2 CRISTAL */
+        /* =========================================== */
+        /* PELÍCULAS - OPTIMIZADO */
+        /* =========================================== */
         .movies-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding-bottom: 70px;
+            gap: 10px;
+            padding-bottom: 60px;
         }
         
         .movie-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(30, 30, 30, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             height: 100%;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
         
         .movie-image-container {
@@ -173,29 +135,29 @@
         
         .movie-year-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(72, 187, 120, 0.85);
+            top: 8px;
+            right: 8px;
+            background: rgba(72, 187, 120, 0.9);
             color: white;
-            padding: 5px 10px;
-            border-radius: 10px;
-            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 0.65rem;
             font-weight: 600;
         }
         
         .movie-content {
-            padding: 15px;
+            padding: 12px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
         
         .movie-title {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 700;
             color: white;
-            margin-bottom: 3px;
-            line-height: 1.3;
+            margin-bottom: 2px;
+            line-height: 1.2;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -203,42 +165,51 @@
         }
         
         .movie-spanish {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 8px;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 6px;
             font-style: italic;
         }
         
         .movie-genres {
             display: flex;
             flex-wrap: wrap;
-            gap: 4px;
-            margin-bottom: 10px;
+            gap: 3px;
+            margin-bottom: 8px;
         }
         
         .genre-tag {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 3px 8px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 6px;
             font-size: 0.65rem;
             color: rgba(255, 255, 255, 0.9);
         }
         
-        /* BOTÓN VER SINOPSIS */
+        /* =========================================== */
+        /* BOTÓN VER SINOPSIS - SIMPLIFICADO */
+        /* =========================================== */
         .synopsis-btn {
             width: 100%;
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             color: white;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 0.8rem;
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 0.75rem;
             font-weight: 500;
             cursor: pointer;
             margin-top: auto;
+            transition: all 0.2s;
         }
         
-        /* MODAL CRISTAL */
+        .synopsis-btn:active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* =========================================== */
+        /* MODAL - CON IMAGEN COMPLETA (object-fit: contain) */
+        /* =========================================== */
         .synopsis-modal {
             display: none;
             position: fixed;
@@ -246,34 +217,30 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
         }
         
         .modal-content {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(30, 30, 30, 0.95);
             margin: 15px;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
         
         .modal-header {
-            padding: 20px;
+            padding: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(40, 40, 40, 0.9);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .modal-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: white;
         }
@@ -282,10 +249,10 @@
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -293,102 +260,115 @@
         }
         
         .modal-body {
-            padding: 20px;
+            padding: 15px;
+        }
+        
+        /* IMAGEN COMPLETA - IMPORTANTE: object-fit: contain */
+        .modal-image-container {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
         }
         
         .modal-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* ¡ESTO MANTIENE LA IMAGEN COMPLETA! */
+            display: block;
         }
         
         .modal-original-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: white;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             line-height: 1.2;
         }
         
         .modal-spanish-title {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-style: italic;
         }
         
         .modal-year {
             display: inline-block;
-            background: rgba(72, 187, 120, 0.8);
+            background: rgba(72, 187, 120, 0.9);
             color: white;
-            padding: 8px 16px;
-            border-radius: 15px;
-            font-size: 0.9rem;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .modal-genres {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 25px;
+            gap: 6px;
+            margin-bottom: 20px;
         }
         
         .modal-genre-tag {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 6px 12px;
-            border-radius: 10px;
-            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.9);
         }
         
         .modal-section-title {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             color: white;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .modal-synopsis {
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            line-height: 1.5;
             color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
+            padding: 15px;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
+            border-radius: 10px;
         }
         
+        /* =========================================== */
         /* SIN RESULTADOS */
+        /* =========================================== */
         .no-results {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 50px 20px;
+            padding: 40px 20px;
             color: rgba(255, 255, 255, 0.7);
         }
         
         .no-results h3 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin-bottom: 10px;
             color: white;
         }
         
-        /* FOOTER MÓVIL */
+        /* =========================================== */
+        /* FOOTER MÓVIL OPTIMIZADO */
+        /* =========================================== */
         .mobile-footer {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(30, 30, 30, 0.95);
             border-top: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 12px 15px;
+            padding: 10px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -396,7 +376,7 @@
         }
         
         .movie-count {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.8);
         }
         
@@ -409,35 +389,15 @@
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
             cursor: pointer;
         }
         
-        /* SAFARI iOS */
-        @supports (-webkit-touch-callout: none) {
-            body::before {
-                background-attachment: scroll;
-            }
-            
-            .app-container {
-                min-height: -webkit-fill-available;
-                padding-top: max(15px, env(safe-area-inset-top));
-                padding-bottom: max(15px, env(safe-area-inset-bottom));
-            }
-            
-            .mobile-footer {
-                padding-bottom: max(12px, env(safe-area-inset-bottom));
-            }
-            
-            .synopsis-modal {
-                padding-top: env(safe-area-inset-top);
-                padding-bottom: env(safe-area-inset-bottom);
-            }
-        }
-        
-        /* TABLETS */
+        /* =========================================== */
+        /* RESPONSIVE */
+        /* =========================================== */
         @media (min-width: 768px) {
             html {
                 font-size: 14px;
@@ -445,7 +405,7 @@
             
             .movies-container {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 15px;
+                gap: 12px;
             }
             
             .movie-image-container {
@@ -454,7 +414,11 @@
             
             .modal-content {
                 max-width: 500px;
-                margin: 30px auto;
+                margin: 20px auto;
+            }
+            
+            .modal-image-container {
+                height: 350px;
             }
         }
     </style>
@@ -470,7 +434,7 @@
                    spellcheck="false">
         </div>
 
-        <!-- GÉNEROS -->
+        <!-- GÉNEROS (SIN DUPLICADOS) -->
         <div class="genres-container" id="genresContainer">
             <!-- Generado por JavaScript -->
         </div>
@@ -506,12 +470,12 @@
 
     <script>
         // ============================================
-        // DATOS DE PELÍCULAS DIRECTAMENTE EN EL CÓDIGO
+        // DATOS DE PELÍCULAS
         // ============================================
         const movies = [
             {
                 id: 1,
-                image: "bridge.jpg",
+                image: "milnove.jpg",
                 titulo: "Avatar",
                 espanol: "Avatar",
                 ano: 2009,
@@ -529,117 +493,65 @@
             },
             {
                 id: 3,
-                image: "milnove.jpg",
+                image: "bridges.jpg",
                 titulo: "Parasite",
                 espanol: "Parásitos",
                 ano: 2019,
                 generos: ["Drama", "Comedia", "Suspense"],
                 sinopsis: "Una familia pobre se hace pasar por tutores altamente cualificados para infiltrarse en un hogar adinerado."
-            },
-            {
-                id: 4,
-                image: "lives.jpg",
-                titulo: "Toy Story",
-                espanol: "Toy Story",
-                ano: 1995,
-                generos: ["Animación", "Aventura", "Comedia"],
-                sinopsis: "Los juguetes de un niño cobran vida cuando los humanos no están presentes, liderados por el vaquero Woody."
-            },
-            {
-                id: 5,
-                image: "chihiro_2001.jpg",
-                titulo: "Spirited Away",
-                espanol: "El viaje de Chihiro",
-                ano: 2001,
-                generos: ["Animación", "Aventura", "Fantasía"],
-                sinopsis: "Durante la mudanza a los suburbios, una familia se desvía hacia un pueblo donde una chica debe salvar a sus padres de un hechizo."
-            },
-            {
-                id: 6,
-                image: "matrix_1999.jpg",
-                titulo: "The Matrix",
-                espanol: "Matrix",
-                ano: 1999,
-                generos: ["Ciencia Ficción", "Acción"],
-                sinopsis: "Un hacker descubre la verdad sobre su realidad y su papel en la guerra contra sus controladores."
-            },
-            {
-                id: 7,
-                image: "titanic_1997.jpg",
-                titulo: "Titanic",
-                espanol: "Titanic",
-                ano: 1997,
-                generos: ["Drama", "Romance"],
-                sinopsis: "Una joven de la alta sociedad y un artista pobre se enamoran a bordo del lujoso transatlántico en su viaje inaugural."
-            },
-            {
-                id: 8,
-                image: "interestelar_2014.jpg",
-                titulo: "Interstellar",
-                espanol: "Interestelar",
-                ano: 2014,
-                generos: ["Ciencia Ficción", "Drama", "Aventura"],
-                sinopsis: "Un grupo de astronautas viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad."
-            },
-            {
-                id: 9,
-                image: "gladiador_2000.jpg",
-                titulo: "Gladiator",
-                espanol: "Gladiador",
-                ano: 2000,
-                generos: ["Acción", "Drama", "Aventura"],
-                sinopsis: "Un general romano es traicionado y su familia asesinada por el hijo corrupto del emperador."
-            },
-            {
-                id: 10,
-                image: "pulp_fiction_1994.jpg",
-                titulo: "Pulp Fiction",
-                espanol: "Tiempos Violentos",
-                ano: 1994,
-                generos: ["Crimen", "Drama"],
-                sinopsis: "Las vidas de dos matones, un boxeador y una pareja de atracadores se entrelazan en cuatro historias de violencia en Los Ángeles."
             }
+            // Agrega aquí el resto de tus películas...
         ];
 
         // ============================================
-        // VARIABLES GLOBALES
+        // VARIABLES GLOBALES OPTIMIZADAS
         // ============================================
         let selectedGenres = new Set();
         let allMovies = movies;
+        let genreButtonsCreated = false; // Para evitar duplicados
 
         // ============================================
-        // FUNCIONES PRINCIPALES - SIMPLIFICADAS
+        // FUNCIONES OPTIMIZADAS
         // ============================================
 
-        // INICIAR APLICACIÓN - CORREGIDO
+        // INICIAR APLICACIÓN - MÁS RÁPIDO
         function initApp() {
-            console.log("🚀 Iniciando aplicación...");
+            console.time("initApp");
             
-            // Crear botones de géneros
-            createGenreButtons();
+            // Crear botones de géneros (solo una vez)
+            if (!genreButtonsCreated) {
+                createGenreButtons();
+                genreButtonsCreated = true;
+            }
             
-            // Mostrar todas las películas inmediatamente
+            // Mostrar películas inmediatamente
             displayMovies(allMovies);
             updateMovieCount(allMovies.length);
             
             // Configurar eventos
             setupEvents();
+            
+            console.timeEnd("initApp");
         }
 
-        // CREAR BOTONES DE GÉNEROS
+        // CREAR BOTONES DE GÉNEROS - SIN DUPLICADOS
         function createGenreButtons() {
             const container = document.getElementById('genresContainer');
+            container.innerHTML = ''; // Limpiar primero
+            
             const uniqueGenres = new Set();
             
-            // Recopilar géneros únicos
+            // Recopilar géneros únicos eficientemente
             allMovies.forEach(movie => {
                 if (movie.generos && Array.isArray(movie.generos)) {
-                    movie.generos.forEach(genre => uniqueGenres.add(genre));
+                    movie.generos.forEach(genre => uniqueGenres.add(genre.trim()));
                 }
             });
             
-            // Ordenar alfabéticamente
-            const sortedGenres = Array.from(uniqueGenres).sort();
+            // Convertir a array, ordenar y eliminar vacíos
+            const sortedGenres = Array.from(uniqueGenres)
+                .filter(g => g && g.length > 0)
+                .sort();
             
             // Botón "Todas"
             const allButton = document.createElement('div');
@@ -647,69 +559,98 @@
             allButton.textContent = 'Todas';
             allButton.dataset.genre = 'all';
             
-            allButton.addEventListener('click', function() {
-                document.querySelectorAll('.genre-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                this.classList.add('active');
-                selectedGenres.clear();
-                filterMovies();
-            });
-            
+            allButton.addEventListener('click', handleGenreClick);
             container.appendChild(allButton);
             
-            // Botones para cada género
+            // Botones para cada género único
             sortedGenres.forEach(genre => {
                 const button = document.createElement('div');
                 button.className = 'genre-btn';
                 button.textContent = genre;
                 button.dataset.genre = genre;
                 
-                button.addEventListener('click', function() {
-                    const allBtn = document.querySelector('[data-genre="all"]');
-                    if (allBtn && allBtn.classList.contains('active')) {
-                        allBtn.classList.remove('active');
-                    }
-                    
-                    this.classList.toggle('active');
-                    
-                    if (selectedGenres.has(genre)) {
-                        selectedGenres.delete(genre);
-                    } else {
-                        selectedGenres.add(genre);
-                    }
-                    
-                    if (selectedGenres.size === 0) {
-                        allBtn.classList.add('active');
-                    }
-                    
-                    filterMovies();
-                });
-                
+                button.addEventListener('click', handleGenreClick);
                 container.appendChild(button);
             });
+            
+            console.log(`🎭 Creados ${sortedGenres.length + 1} géneros únicos`);
         }
 
-        // FILTRAR PELÍCULAS
+        // MANEJADOR DE CLIC EN GÉNEROS - MÁS EFICIENTE
+        function handleGenreClick() {
+            const genre = this.dataset.genre;
+            const allBtn = document.querySelector('[data-genre="all"]');
+            
+            if (genre === 'all') {
+                // Deseleccionar todos
+                document.querySelectorAll('.genre-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                selectedGenres.clear();
+            } else {
+                // Deseleccionar "Todas" si está activa
+                if (allBtn && allBtn.classList.contains('active')) {
+                    allBtn.classList.remove('active');
+                }
+                
+                // Toggle selección
+                this.classList.toggle('active');
+                
+                if (selectedGenres.has(genre)) {
+                    selectedGenres.delete(genre);
+                } else {
+                    selectedGenres.add(genre);
+                }
+                
+                // Si no hay géneros seleccionados, activar "Todas"
+                if (selectedGenres.size === 0) {
+                    allBtn.classList.add('active');
+                }
+            }
+            
+            filterMovies();
+        }
+
+        // FILTRAR PELÍCULAS - OPTIMIZADO
         function filterMovies() {
             const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
+            const hasSearch = searchText.length > 0;
+            const hasGenres = selectedGenres.size > 0;
             
-            let filteredMovies = allMovies.filter(movie => {
-                if (searchText === '') return true;
-                
-                const title = movie.titulo ? movie.titulo.toLowerCase() : '';
-                const spanish = movie.espanol ? movie.espanol.toLowerCase() : '';
-                
-                return title.includes(searchText) || spanish.includes(searchText);
-            });
+            // Si no hay filtros, mostrar todas
+            if (!hasSearch && !hasGenres) {
+                displayMovies(allMovies);
+                updateMovieCount(allMovies.length);
+                return;
+            }
             
-            if (selectedGenres.size > 0) {
-                filteredMovies = filteredMovies.filter(movie => {
-                    if (!movie.generos || !Array.isArray(movie.generos)) return false;
+            let filteredMovies;
+            
+            if (hasSearch && !hasGenres) {
+                // Solo búsqueda de texto
+                filteredMovies = allMovies.filter(movie => 
+                    (movie.titulo && movie.titulo.toLowerCase().includes(searchText)) ||
+                    (movie.espanol && movie.espanol.toLowerCase().includes(searchText))
+                );
+            } else if (!hasSearch && hasGenres) {
+                // Solo géneros
+                filteredMovies = allMovies.filter(movie => 
+                    movie.generos && Array.isArray(movie.generos) &&
+                    Array.from(selectedGenres).every(g => movie.generos.includes(g))
+                );
+            } else {
+                // Ambos filtros
+                filteredMovies = allMovies.filter(movie => {
+                    const textMatch = 
+                        (movie.titulo && movie.titulo.toLowerCase().includes(searchText)) ||
+                        (movie.espanol && movie.espanol.toLowerCase().includes(searchText));
                     
-                    return Array.from(selectedGenres).every(selectedGenre => 
-                        movie.generos.includes(selectedGenre)
-                    );
+                    const genreMatch = 
+                        movie.generos && Array.isArray(movie.generos) &&
+                        Array.from(selectedGenres).every(g => movie.generos.includes(g));
+                    
+                    return textMatch && genreMatch;
                 });
             }
             
@@ -717,7 +658,7 @@
             updateMovieCount(filteredMovies.length);
         }
 
-        // MOSTRAR PELÍCULAS - CORREGIDO
+        // MOSTRAR PELÍCULAS - MÁS RÁPIDO
         function displayMovies(movies) {
             const container = document.getElementById('moviesContainer');
             
@@ -731,16 +672,17 @@
                 return;
             }
             
-            let html = '';
+            // Usar DocumentFragment para mejor performance
+            const fragment = document.createDocumentFragment();
             
             movies.forEach(movie => {
-                const movieId = movie.id;
-                const imagePath = `images/${movie.image}`;
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+                card.dataset.movieId = movie.id;
                 
-                html += `
-                <div class="movie-card">
+                card.innerHTML = `
                     <div class="movie-image-container">
-                        <img src="${imagePath}" 
+                        <img src="images/${movie.image}" 
                              alt="${movie.titulo}"
                              class="movie-image"
                              loading="lazy">
@@ -758,30 +700,33 @@
                             ${movie.generos && movie.generos.length > 3 ? '<span class="genre-tag">...</span>' : ''}
                         </div>
                         
-                        <button class="synopsis-btn" onclick="openSynopsisModal(${movieId})">
+                        <button class="synopsis-btn" onclick="openSynopsisModal(${movie.id})">
                             Ver sinopsis
                         </button>
                     </div>
-                </div>
                 `;
+                
+                fragment.appendChild(card);
             });
             
-            container.innerHTML = html;
+            container.innerHTML = '';
+            container.appendChild(fragment);
         }
 
-        // ABRIR MODAL DE SINOPSIS
+        // ABRIR MODAL CON IMAGEN COMPLETA
         function openSynopsisModal(movieId) {
             const movie = allMovies.find(m => m.id === movieId);
             if (!movie) return;
             
             const modal = document.getElementById('synopsisModal');
             const content = document.getElementById('modalContent');
-            const imagePath = `images/${movie.image}`;
             
             content.innerHTML = `
-                <img src="${imagePath}" 
-                     alt="${movie.titulo}"
-                     class="modal-image">
+                <div class="modal-image-container">
+                    <img src="images/${movie.image}" 
+                         alt="${movie.titulo}"
+                         class="modal-image">
+                </div>
                 
                 <div class="modal-original-title">${movie.titulo}</div>
                 <div class="modal-spanish-title">${movie.espanol || ''}</div>
@@ -806,8 +751,7 @@
 
         // CERRAR MODAL
         function closeSynopsisModal() {
-            const modal = document.getElementById('synopsisModal');
-            modal.style.display = 'none';
+            document.getElementById('synopsisModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
@@ -833,17 +777,16 @@
             
             displayMovies(allMovies);
             updateMovieCount(allMovies.length);
-            
-            document.getElementById('searchInput').focus();
         }
 
-        // CONFIGURAR EVENTOS
+        // CONFIGURAR EVENTOS OPTIMIZADOS
         function setupEvents() {
-            // Búsqueda en tiempo real
+            const searchInput = document.getElementById('searchInput');
             let searchTimeout;
-            document.getElementById('searchInput').addEventListener('input', function() {
+            
+            searchInput.addEventListener('input', function() {
                 clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(filterMovies, 300);
+                searchTimeout = setTimeout(filterMovies, 250); // Debounce reducido
             });
             
             // Cerrar modal con tecla ESC
@@ -859,25 +802,16 @@
                     closeSynopsisModal();
                 }
             });
-            
-            // Focus automático
-            document.getElementById('searchInput').focus();
         }
 
         // ============================================
-        // INICIAR INMEDIATAMENTE
+        // INICIALIZACIÓN RÁPIDA
         // ============================================
-        
-        // Usar DOMContentLoaded O cargar inmediatamente si ya está listo
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initApp);
         } else {
-            // Si el DOM ya está cargado, iniciar inmediatamente
             initApp();
         }
-        
-        // También intentar iniciar después de un breve retraso por si acaso
-        setTimeout(initApp, 100);
     </script>
 </body>
 </html>
