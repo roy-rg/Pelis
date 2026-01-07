@@ -6,7 +6,7 @@
     <title>🎬 Movies</title>
     <style>
         /* =========================================== */
-        /* ESTILOS BASE OPTIMIZADOS */
+        /* ESTILOS BASE CON FONDO FIJO COMO APP */
         /* =========================================== */
         * {
             margin: 0;
@@ -25,10 +25,44 @@
             color: white;
             line-height: 1.4;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* FONDO FIJO COMO APP ANDROID - NO SE MUEVE */
+        body::before {
+            content: '';
+            position: fixed; /* IMPORTANTE: fixed en lugar de background-attachment */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: 
                 linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-                url('images/background.jpg') center/cover fixed no-repeat;
-            overflow-x: hidden;
+                url('images/background.jpg') center/cover no-repeat;
+            z-index: -2;
+            /* Evita el efecto parallax */
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        /* Overlay fijo también */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+        
+        /* CONTENEDOR PRINCIPAL - TRANSPARENTE SOBRE FONDO FIJO */
+        .app-container {
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
         }
         
         /* =========================================== */
@@ -39,6 +73,9 @@
             padding: 18px 15px 15px;
             background: rgba(15, 15, 15, 0.95);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            position: relative;
         }
         
         .header h1 {
@@ -53,6 +90,7 @@
         /* =========================================== */
         .search-container {
             margin: 12px 15px;
+            position: relative;
         }
         
         #searchInput {
@@ -65,6 +103,8 @@
             color: white;
             outline: none;
             transition: border 0.2s;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         
         #searchInput:focus {
@@ -84,6 +124,7 @@
             flex-wrap: wrap;
             gap: 5px;
             padding: 8px 0;
+            position: relative;
         }
         
         .genre-btn {
@@ -97,6 +138,8 @@
             background: rgba(30, 30, 30, 0.9);
             flex: 0 0 auto;
             transition: all 0.2s;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         
         .genre-btn.active {
@@ -105,7 +148,7 @@
         }
         
         /* =========================================== */
-        /* PELÍCULAS CON LAZY LOADING */
+        /* PELÍCULAS */
         /* =========================================== */
         .movies-container {
             display: grid;
@@ -115,7 +158,7 @@
         }
         
         .movie-card {
-            background: rgba(25, 25, 25, 0.9);
+            background: rgba(25, 25, 25, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 10px;
             overflow: hidden;
@@ -124,6 +167,8 @@
             opacity: 0;
             transform: translateY(10px);
             animation: fadeInUp 0.3s ease forwards;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         
         @keyframes fadeInUp {
@@ -208,7 +253,7 @@
         }
         
         /* =========================================== */
-        /* BOTÓN VER SINOPSIS - TRANSPARENTE CON BORDE BLANCO */
+        /* BOTÓN VER SINOPSIS */
         /* =========================================== */
         .synopsis-btn {
             width: 100%;
@@ -247,6 +292,8 @@
         .modal-content {
             background: rgba(20, 20, 20, 0.98);
             min-height: 100vh;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
         
         .modal-header {
@@ -380,6 +427,8 @@
             cursor: pointer;
             margin: 10px 0;
             transition: all 0.2s;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         
         .load-more-btn:active {
@@ -447,28 +496,30 @@
     </style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="header">
-        <h1>Movies</h1>
-    </header>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="header">
+            <h1>Movies</h1>
+        </header>
 
-    <!-- BUSCADOR -->
-    <div class="search-container">
-        <input type="text" id="searchInput" 
-               placeholder="Buscar por título..."
-               autocomplete="off"
-               autocapitalize="off"
-               spellcheck="false">
-    </div>
+        <!-- BUSCADOR -->
+        <div class="search-container">
+            <input type="text" id="searchInput" 
+                   placeholder="Buscar por título..."
+                   autocomplete="off"
+                   autocapitalize="off"
+                   spellcheck="false">
+        </div>
 
-    <!-- GÉNEROS -->
-    <div class="genres-container" id="genresContainer">
-        <!-- Generado por JavaScript -->
-    </div>
+        <!-- GÉNEROS -->
+        <div class="genres-container" id="genresContainer">
+            <!-- Generado por JavaScript -->
+        </div>
 
-    <!-- PELÍCULAS -->
-    <div class="movies-container" id="moviesContainer">
-        <div class="no-results">Cargando catálogo...</div>
+        <!-- PELÍCULAS -->
+        <div class="movies-container" id="moviesContainer">
+            <div class="no-results">Cargando catálogo...</div>
+        </div>
     </div>
 
     <!-- MODAL -->
@@ -489,19 +540,18 @@
         // CONFIGURACIÓN
         // ============================================
         const CONFIG = {
-            itemsPerPage: 24,           // Películas por página
-            lazyLoadThreshold: 300      // Pixeles antes del final para cargar más
+            itemsPerPage: 24,
+            lazyLoadThreshold: 300
         };
 
         // ============================================
         // DATOS DE PELÍCULAS - AQUÍ PONES TUS 350+
         // ============================================
         const movies = [
-            // ↓↓↓ COPIAR Y PEGAR TUS PELÍCULAS AQUÍ ↓↓↓
-            // EJEMPLO - BORRA ESTOS Y PON LOS TUYOS:
+            // ↓↓↓ PEGA TUS PELÍCULAS AQUÍ ↓↓↓
             {
                 id: 1,
-                image: "milnove.jpg",
+                image: "bridges.jpg",
                 titulo: "Avatar",
                 espanol: "Avatar",
                 ano: 2009,
@@ -510,7 +560,7 @@
             },
             {
                 id: 2,
-                image: "bridges.jpg",
+                image: "lives.jpg",
                 titulo: "The Godfather",
                 espanol: "El Padrino",
                 ano: 1972,
@@ -519,14 +569,14 @@
             },
             {
                 id: 3,
-                image: "lives.jpg",
+                image: "milnove.jpg",
                 titulo: "Parasite",
                 espanol: "Parásitos",
                 ano: 2019,
                 generos: ["Drama", "Comedia", "Suspense"],
                 sinopsis: "Una familia pobre se hace pasar por tutores altamente cualificados para infiltrarse en un hogar adinerado."
-            },
-            // ... Agrega aquí todas tus películas (350+)
+            }
+            // ... Agrega aquí todas tus películas
             // ↑↑↑ HASTA AQUÍ ↑↑↑
         ];
 
@@ -543,7 +593,6 @@
         // FUNCIONES PRINCIPALES
         // ============================================
 
-        // INICIAR APLICACIÓN
         function initApp() {
             createGenreButtons();
             setupImageObserver();
@@ -551,7 +600,6 @@
             filterAndLoadMovies();
         }
 
-        // OBSERVADOR PARA LAZY LOADING
         function setupImageObserver() {
             imageObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -573,7 +621,6 @@
             }, { rootMargin: '50px' });
         }
 
-        // CREAR BOTONES DE GÉNEROS
         function createGenreButtons() {
             const container = document.getElementById('genresContainer');
             const uniqueGenres = new Set();
@@ -605,7 +652,6 @@
             });
         }
 
-        // MANEJAR CLIC EN GÉNEROS
         function handleGenreClick() {
             const genre = this.dataset.genre;
             const allBtn = document.querySelector('[data-genre="all"]');
@@ -638,7 +684,6 @@
             filterAndLoadMovies();
         }
 
-        // FILTRAR Y CARGAR PELÍCULAS
         function filterAndLoadMovies() {
             if (isLoading) return;
             isLoading = true;
@@ -646,14 +691,11 @@
             setTimeout(() => {
                 const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
                 
-                // Filtrar películas
                 filteredMovies = movies.filter(movie => {
-                    // Filtro por texto
                     const textMatch = searchText === '' || 
                         movie.titulo.toLowerCase().includes(searchText) ||
                         (movie.espanol && movie.espanol.toLowerCase().includes(searchText));
                     
-                    // Filtro por géneros
                     if (selectedGenres.size > 0) {
                         if (!movie.generos) return false;
                         const genreMatch = Array.from(selectedGenres).every(g => 
@@ -665,35 +707,29 @@
                     return textMatch;
                 });
                 
-                // Calcular qué películas mostrar
                 const startIndex = (currentPage - 1) * CONFIG.itemsPerPage;
                 const endIndex = startIndex + CONFIG.itemsPerPage;
                 const moviesToShow = filteredMovies.slice(startIndex, endIndex);
                 
-                // Mostrar películas
                 if (currentPage === 1) {
                     displayMovies(moviesToShow);
                 } else {
                     appendMovies(moviesToShow);
                 }
                 
-                // Preparar para siguiente página
                 currentPage++;
                 isLoading = false;
                 
-                // Verificar si hay más películas
                 if (endIndex >= filteredMovies.length) {
                     removeLoadMoreButton();
                 } else {
                     addLoadMoreButton();
                 }
                 
-                // Observar nuevas imágenes
                 observeNewImages();
             }, 200);
         }
 
-        // MOSTRAR PELÍCULAS
         function displayMovies(moviesToShow) {
             const container = document.getElementById('moviesContainer');
             
@@ -716,7 +752,6 @@
             container.innerHTML = html;
         }
 
-        // AGREGAR MÁS PELÍCULAS
         function appendMovies(moviesToShow) {
             const container = document.getElementById('moviesContainer');
             let html = '';
@@ -725,7 +760,6 @@
                 html += createMovieCardHTML(movie);
             });
             
-            // Remover botón "Cargar más" si existe
             const loadMoreBtn = container.querySelector('.load-more-btn');
             if (loadMoreBtn) {
                 loadMoreBtn.remove();
@@ -734,7 +768,6 @@
             container.insertAdjacentHTML('beforeend', html);
         }
 
-        // CREAR HTML DE UNA PELÍCULA - SIN ALT ATTRIBUTE
         function createMovieCardHTML(movie) {
             return `
             <div class="movie-card" data-movie-id="${movie.id}">
@@ -765,7 +798,6 @@
             `;
         }
 
-        // OBSERVAR NUEVAS IMÁGENES
         function observeNewImages() {
             if (!imageObserver) return;
             
@@ -775,7 +807,6 @@
             });
         }
 
-        // AGREGAR BOTÓN "CARGAR MÁS"
         function addLoadMoreButton() {
             const container = document.getElementById('moviesContainer');
             const existingBtn = container.querySelector('.load-more-btn');
@@ -789,7 +820,6 @@
             }
         }
 
-        // REMOVER BOTÓN "CARGAR MÁS"
         function removeLoadMoreButton() {
             const container = document.getElementById('moviesContainer');
             const button = container.querySelector('.load-more-btn');
@@ -798,7 +828,6 @@
             }
         }
 
-        // ABRIR MODAL
         function openSynopsisModal(movieId) {
             const movie = movies.find(m => m.id === movieId);
             if (!movie) return;
@@ -832,15 +861,12 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // CERRAR MODAL
         function closeSynopsisModal() {
             document.getElementById('synopsisModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // CONFIGURAR EVENTOS
         function setupEvents() {
-            // Búsqueda
             let searchTimeout;
             document.getElementById('searchInput').addEventListener('input', function() {
                 clearTimeout(searchTimeout);
@@ -850,7 +876,6 @@
                 }, 400);
             });
             
-            // Scroll infinito
             window.addEventListener('scroll', () => {
                 if (isLoading) return;
                 
@@ -865,7 +890,6 @@
                 }
             });
             
-            // Cerrar modal con ESC
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     closeSynopsisModal();
