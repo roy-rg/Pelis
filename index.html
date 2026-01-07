@@ -6,7 +6,7 @@
     <title>🎬 Movies</title>
     <style>
         /* =========================================== */
-        /* RESET Y ESTILOS BASE */
+        /* ESTILOS BASE OPTIMIZADOS */
         /* =========================================== */
         * {
             margin: 0;
@@ -23,56 +23,52 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             color: white;
-            line-height: 1.5;
+            line-height: 1.4;
             min-height: 100vh;
             background: 
-                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
                 url('images/background.jpg') center/cover fixed no-repeat;
+            overflow-x: hidden;
         }
         
         /* =========================================== */
-        /* HEADER SIMPLE */
+        /* HEADER */
         /* =========================================== */
         .header {
             text-align: center;
-            padding: 20px 15px 15px;
-            background: rgba(20, 20, 20, 0.9);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 18px 15px 15px;
+            background: rgba(15, 15, 15, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .header h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
             color: white;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
         }
         
         /* =========================================== */
-        /* BUSCADOR (NO STICKY) */
+        /* BUSCADOR */
         /* =========================================== */
         .search-container {
-            margin: 15px;
-            margin-top: 0;
+            margin: 12px 15px;
         }
         
         #searchInput {
             width: 100%;
-            padding: 14px 18px;
-            font-size: 0.95rem;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 12px;
-            background: rgba(30, 30, 30, 0.9);
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(25, 25, 25, 0.9);
             color: white;
             outline: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s;
+            transition: border 0.2s;
         }
         
         #searchInput:focus {
-            background: rgba(40, 40, 40, 0.95);
-            border-color: rgba(102, 126, 234, 0.7);
+            border-color: rgba(255, 255, 255, 0.4);
         }
         
         #searchInput::placeholder {
@@ -80,26 +76,25 @@
         }
         
         /* =========================================== */
-        /* GÉNEROS COMPACTOS */
+        /* GÉNEROS */
         /* =========================================== */
         .genres-container {
-            margin: 0 15px 15px;
+            margin: 0 15px 12px;
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            padding: 10px 0;
+            gap: 5px;
+            padding: 8px 0;
         }
         
         .genre-btn {
-            padding: 7px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            font-size: 0.75rem;
+            padding: 6px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 0.7rem;
             color: white;
             font-weight: 500;
             cursor: pointer;
-            background: rgba(40, 40, 40, 0.8);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            background: rgba(30, 30, 30, 0.9);
             flex: 0 0 auto;
             transition: all 0.2s;
         }
@@ -110,36 +105,40 @@
         }
         
         /* =========================================== */
-        /* PELÍCULAS 2x2 */
+        /* PELÍCULAS CON LAZY LOADING */
         /* =========================================== */
         .movies-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 0 15px 70px;
+            gap: 10px;
+            padding: 0 15px 60px;
         }
         
         .movie-card {
-            background: rgba(30, 30, 30, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            background: rgba(25, 25, 25, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            height: 100%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.3s ease forwards;
         }
         
-        .movie-card:active {
-            transform: scale(0.98);
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .movie-image-container {
             position: relative;
             width: 100%;
-            height: 180px;
+            height: 170px;
             overflow: hidden;
+            background: rgba(0, 0, 0, 0.3);
         }
         
         .movie-image {
@@ -147,34 +146,39 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .movie-image.loaded {
+            opacity: 1;
         }
         
         .movie-year-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 8px;
+            right: 8px;
             background: rgba(72, 187, 120, 0.95);
             color: white;
-            padding: 4px 10px;
-            border-radius: 10px;
-            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 0.65rem;
             font-weight: 600;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
         
         .movie-content {
-            padding: 15px;
+            padding: 12px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
         
         .movie-title {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 700;
             color: white;
-            margin-bottom: 3px;
-            line-height: 1.3;
+            margin-bottom: 2px;
+            line-height: 1.2;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -182,50 +186,50 @@
         }
         
         .movie-spanish {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-style: italic;
         }
         
         .movie-genres {
             display: flex;
             flex-wrap: wrap;
-            gap: 4px;
-            margin-bottom: 12px;
+            gap: 3px;
+            margin-bottom: 8px;
         }
         
         .genre-tag {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 3px 8px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 6px;
+            border-radius: 6px;
             font-size: 0.65rem;
             color: rgba(255, 255, 255, 0.9);
         }
         
         /* =========================================== */
-        /* BOTÓN VER SINOPSIS */
+        /* BOTÓN VER SINOPSIS - TRANSPARENTE CON BORDE BLANCO */
         /* =========================================== */
         .synopsis-btn {
             width: 100%;
-            background: rgba(102, 126, 234, 0.8);
-            border: 1px solid rgba(102, 126, 234, 0.6);
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
             cursor: pointer;
             margin-top: auto;
             transition: all 0.2s;
         }
         
         .synopsis-btn:active {
-            background: rgba(102, 126, 234, 0.9);
+            background: rgba(255, 255, 255, 0.1);
         }
         
         /* =========================================== */
-        /* MODAL - IMAGEN CUADRADA SIN BORDES NEGROS */
+        /* MODAL */
         /* =========================================== */
         .synopsis-modal {
             display: none;
@@ -234,40 +238,40 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.97);
             z-index: 1000;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .modal-content {
             background: rgba(20, 20, 20, 0.98);
             min-height: 100vh;
-            position: relative;
         }
         
         .modal-header {
-            padding: 20px 15px;
+            padding: 18px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(30, 30, 30, 0.95);
+            background: rgba(25, 25, 25, 0.95);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .modal-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: white;
         }
         
         .close-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -278,43 +282,36 @@
             padding: 20px 15px;
         }
         
-        /* CONTENEDOR DE IMAGEN - FONDO TRANSPARENTE PARA EVITAR BORDES */
         .modal-image-container {
             width: 100%;
-            max-width: 400px;
-            height: 400px;
-            margin: 0 auto 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 15px;
+            max-width: 350px;
+            height: 350px;
+            margin: 0 auto 20px;
+            border-radius: 12px;
             overflow: hidden;
-            background: transparent; /* ¡TRANSPARENTE! Sin bordes negros */
-            position: relative;
+            background: transparent;
         }
         
-        /* IMAGEN CUADRADA - SIN BORDES */
         .modal-image {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Para imágenes cuadradas */
+            object-fit: cover;
             display: block;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
         }
         
         .modal-original-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: white;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             line-height: 1.2;
         }
         
         .modal-spanish-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-style: italic;
         }
         
@@ -322,60 +319,83 @@
             display: inline-block;
             background: rgba(72, 187, 120, 0.95);
             color: white;
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 0.9rem;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .modal-genres {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 25px;
+            gap: 6px;
+            margin-bottom: 20px;
         }
         
         .modal-genre-tag {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 6px 12px;
-            border-radius: 10px;
-            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.9);
         }
         
         .modal-section-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: white;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid rgba(102, 126, 234, 0.5);
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .modal-synopsis {
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            line-height: 1.5;
             color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
+            padding: 15px;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            border-left: 4px solid rgba(102, 126, 234, 0.7);
+            border-radius: 10px;
         }
         
         /* =========================================== */
-        /* SIN RESULTADOS */
+        /* LOADING Y ESTADOS */
         /* =========================================== */
+        .loading-indicator {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .load-more-btn {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: all 0.2s;
+        }
+        
+        .load-more-btn:active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
         .no-results {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 50px 20px;
-            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.6);
         }
         
         .no-results h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
             color: white;
         }
         
@@ -389,17 +409,17 @@
             
             .movies-container {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 15px;
-                padding: 0 20px 80px;
+                gap: 12px;
+                padding: 0 20px 70px;
             }
             
             .movie-image-container {
-                height: 200px;
+                height: 190px;
             }
             
             .modal-image-container {
-                max-width: 450px;
-                height: 450px;
+                max-width: 400px;
+                height: 400px;
             }
         }
         
@@ -408,32 +428,31 @@
                 grid-template-columns: repeat(4, 1fr);
                 max-width: 1200px;
                 margin: 0 auto;
-                padding-bottom: 100px;
+                padding-bottom: 80px;
             }
             
             .modal-content {
                 max-width: 500px;
-                margin: 30px auto;
+                margin: 40px auto;
                 min-height: auto;
-                border-radius: 20px;
+                border-radius: 15px;
                 overflow: hidden;
-                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             }
             
             .modal-image-container {
-                max-width: 500px;
-                height: 500px;
+                max-width: 450px;
+                height: 450px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HEADER SIMPLE -->
+    <!-- HEADER -->
     <header class="header">
         <h1>Movies</h1>
     </header>
 
-    <!-- BUSCADOR (NO STICKY) -->
+    <!-- BUSCADOR -->
     <div class="search-container">
         <input type="text" id="searchInput" 
                placeholder="Buscar por título..."
@@ -467,12 +486,22 @@
 
     <script>
         // ============================================
-        // DATOS DE PELÍCULAS
+        // CONFIGURACIÓN
+        // ============================================
+        const CONFIG = {
+            itemsPerPage: 24,           // Películas por página
+            lazyLoadThreshold: 300      // Pixeles antes del final para cargar más
+        };
+
+        // ============================================
+        // DATOS DE PELÍCULAS - AQUÍ PONES TUS 350+
         // ============================================
         const movies = [
+            // ↓↓↓ COPIAR Y PEGAR TUS PELÍCULAS AQUÍ ↓↓↓
+            // EJEMPLO - BORRA ESTOS Y PON LOS TUYOS:
             {
                 id: 1,
-                image: "bridges.jpg",
+                image: "milnove.jpg",
                 titulo: "Avatar",
                 espanol: "Avatar",
                 ano: 2009,
@@ -481,7 +510,7 @@
             },
             {
                 id: 2,
-                image: "metros.jpg",
+                image: "bridges.jpg",
                 titulo: "The Godfather",
                 espanol: "El Padrino",
                 ano: 1972,
@@ -490,82 +519,25 @@
             },
             {
                 id: 3,
-                image: "milnove.jpg",
+                image: "lives.jpg",
                 titulo: "Parasite",
                 espanol: "Parásitos",
                 ano: 2019,
                 generos: ["Drama", "Comedia", "Suspense"],
                 sinopsis: "Una familia pobre se hace pasar por tutores altamente cualificados para infiltrarse en un hogar adinerado."
             },
-            {
-                id: 4,
-                image: "toy_story_1995.jpg",
-                titulo: "Toy Story",
-                espanol: "Toy Story",
-                ano: 1995,
-                generos: ["Animación", "Aventura", "Comedia"],
-                sinopsis: "Los juguetes de un niño cobran vida cuando los humanos no están presentes, liderados por el vaquero Woody."
-            },
-            {
-                id: 5,
-                image: "chihiro_2001.jpg",
-                titulo: "Spirited Away",
-                espanol: "El viaje de Chihiro",
-                ano: 2001,
-                generos: ["Animación", "Aventura", "Fantasía"],
-                sinopsis: "Durante la mudanza a los suburbios, una familia se desvía hacia un pueblo donde una chica debe salvar a sus padres de un hechizo."
-            },
-            {
-                id: 6,
-                image: "matrix_1999.jpg",
-                titulo: "The Matrix",
-                espanol: "Matrix",
-                ano: 1999,
-                generos: ["Ciencia Ficción", "Acción"],
-                sinopsis: "Un hacker descubre la verdad sobre su realidad y su papel en la guerra contra sus controladores."
-            },
-            {
-                id: 7,
-                image: "titanic_1997.jpg",
-                titulo: "Titanic",
-                espanol: "Titanic",
-                ano: 1997,
-                generos: ["Drama", "Romance"],
-                sinopsis: "Una joven de la alta sociedad y un artista pobre se enamoran a bordo del lujoso transatlántico en su viaje inaugural."
-            },
-            {
-                id: 8,
-                image: "interestelar_2014.jpg",
-                titulo: "Interstellar",
-                espanol: "Interestelar",
-                ano: 2014,
-                generos: ["Ciencia Ficción", "Drama", "Aventura"],
-                sinopsis: "Un grupo de astronautas viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad."
-            },
-            {
-                id: 9,
-                image: "gladiador_2000.jpg",
-                titulo: "Gladiator",
-                espanol: "Gladiador",
-                ano: 2000,
-                generos: ["Acción", "Drama", "Aventura"],
-                sinopsis: "Un general romano es traicionado y su familia asesinada por el hijo corrupto del emperador."
-            },
-            {
-                id: 10,
-                image: "pulp_fiction_1994.jpg",
-                titulo: "Pulp Fiction",
-                espanol: "Tiempos Violentos",
-                ano: 1994,
-                generos: ["Crimen", "Drama"],
-                sinopsis: "Las vidas de dos matones, un boxeador y una pareja de atracadores se entrelazan en cuatro historias de violencia en Los Ángeles."
-            }
+            // ... Agrega aquí todas tus películas (350+)
+            // ↑↑↑ HASTA AQUÍ ↑↑↑
         ];
 
         // ============================================
         // VARIABLES GLOBALES
         // ============================================
         let selectedGenres = new Set();
+        let currentPage = 1;
+        let isLoading = false;
+        let imageObserver = null;
+        let filteredMovies = [];
 
         // ============================================
         // FUNCIONES PRINCIPALES
@@ -574,8 +546,31 @@
         // INICIAR APLICACIÓN
         function initApp() {
             createGenreButtons();
-            displayMovies(movies);
+            setupImageObserver();
             setupEvents();
+            filterAndLoadMovies();
+        }
+
+        // OBSERVADOR PARA LAZY LOADING
+        function setupImageObserver() {
+            imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        const src = img.dataset.src;
+                        
+                        if (src) {
+                            img.src = src;
+                            img.onload = () => {
+                                img.classList.add('loaded');
+                            };
+                            img.removeAttribute('data-src');
+                        }
+                        
+                        imageObserver.unobserve(img);
+                    }
+                });
+            }, { rootMargin: '50px' });
         }
 
         // CREAR BOTONES DE GÉNEROS
@@ -584,21 +579,18 @@
             const uniqueGenres = new Set();
             
             movies.forEach(movie => {
-                if (movie.generos && Array.isArray(movie.generos)) {
+                if (movie.generos) {
                     movie.generos.forEach(genre => uniqueGenres.add(genre.trim()));
                 }
             });
             
-            const sortedGenres = Array.from(uniqueGenres)
-                .filter(g => g && g.length > 0)
-                .sort();
+            const sortedGenres = Array.from(uniqueGenres).sort();
             
             // Botón "Todas"
             const allButton = document.createElement('div');
             allButton.className = 'genre-btn active';
             allButton.textContent = 'Todas';
             allButton.dataset.genre = 'all';
-            
             allButton.addEventListener('click', handleGenreClick);
             container.appendChild(allButton);
             
@@ -608,7 +600,6 @@
                 button.className = 'genre-btn';
                 button.textContent = genre;
                 button.dataset.genre = genre;
-                
                 button.addEventListener('click', handleGenreClick);
                 container.appendChild(button);
             });
@@ -643,30 +634,63 @@
                 }
             }
             
-            filterMovies();
+            currentPage = 1;
+            filterAndLoadMovies();
         }
 
-        // FILTRAR PELÍCULAS
-        function filterMovies() {
-            const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
+        // FILTRAR Y CARGAR PELÍCULAS
+        function filterAndLoadMovies() {
+            if (isLoading) return;
+            isLoading = true;
             
-            let filteredMovies = movies.filter(movie => {
-                // Filtro por texto
-                const textMatch = searchText === '' || 
-                    (movie.titulo && movie.titulo.toLowerCase().includes(searchText)) ||
-                    (movie.espanol && movie.espanol.toLowerCase().includes(searchText));
+            setTimeout(() => {
+                const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
                 
-                // Filtro por géneros (si hay seleccionados)
-                if (selectedGenres.size > 0) {
-                    if (!movie.generos || !Array.isArray(movie.generos)) return false;
-                    const genreMatch = Array.from(selectedGenres).every(g => movie.generos.includes(g));
-                    return textMatch && genreMatch;
+                // Filtrar películas
+                filteredMovies = movies.filter(movie => {
+                    // Filtro por texto
+                    const textMatch = searchText === '' || 
+                        movie.titulo.toLowerCase().includes(searchText) ||
+                        (movie.espanol && movie.espanol.toLowerCase().includes(searchText));
+                    
+                    // Filtro por géneros
+                    if (selectedGenres.size > 0) {
+                        if (!movie.generos) return false;
+                        const genreMatch = Array.from(selectedGenres).every(g => 
+                            movie.generos.includes(g)
+                        );
+                        return textMatch && genreMatch;
+                    }
+                    
+                    return textMatch;
+                });
+                
+                // Calcular qué películas mostrar
+                const startIndex = (currentPage - 1) * CONFIG.itemsPerPage;
+                const endIndex = startIndex + CONFIG.itemsPerPage;
+                const moviesToShow = filteredMovies.slice(startIndex, endIndex);
+                
+                // Mostrar películas
+                if (currentPage === 1) {
+                    displayMovies(moviesToShow);
+                } else {
+                    appendMovies(moviesToShow);
                 }
                 
-                return textMatch;
-            });
-            
-            displayMovies(filteredMovies);
+                // Preparar para siguiente página
+                currentPage++;
+                isLoading = false;
+                
+                // Verificar si hay más películas
+                if (endIndex >= filteredMovies.length) {
+                    removeLoadMoreButton();
+                } else {
+                    addLoadMoreButton();
+                }
+                
+                // Observar nuevas imágenes
+                observeNewImages();
+            }, 200);
         }
 
         // MOSTRAR PELÍCULAS
@@ -686,39 +710,95 @@
             let html = '';
             
             moviesToShow.forEach(movie => {
-                html += `
-                <div class="movie-card">
-                    <div class="movie-image-container">
-                        <img src="images/${movie.image}" 
-                             alt="${movie.titulo}"
-                             class="movie-image"
-                             loading="lazy">
-                        <div class="movie-year-badge">${movie.ano || 'N/A'}</div>
-                    </div>
-                    
-                    <div class="movie-content">
-                        <h3 class="movie-title">${movie.titulo}</h3>
-                        <p class="movie-spanish">${movie.espanol || ''}</p>
-                        
-                        <div class="movie-genres">
-                            ${movie.generos && Array.isArray(movie.generos) 
-                                ? movie.generos.slice(0, 3).map(g => `<span class="genre-tag">${g}</span>`).join('') 
-                                : ''}
-                            ${movie.generos && movie.generos.length > 3 ? '<span class="genre-tag">...</span>' : ''}
-                        </div>
-                        
-                        <button class="synopsis-btn" onclick="openSynopsisModal(${movie.id})">
-                            Ver sinopsis
-                        </button>
-                    </div>
-                </div>
-                `;
+                html += createMovieCardHTML(movie);
             });
             
             container.innerHTML = html;
         }
 
-        // ABRIR MODAL CON IMAGEN CUADRADA SIN BORDES
+        // AGREGAR MÁS PELÍCULAS
+        function appendMovies(moviesToShow) {
+            const container = document.getElementById('moviesContainer');
+            let html = '';
+            
+            moviesToShow.forEach(movie => {
+                html += createMovieCardHTML(movie);
+            });
+            
+            // Remover botón "Cargar más" si existe
+            const loadMoreBtn = container.querySelector('.load-more-btn');
+            if (loadMoreBtn) {
+                loadMoreBtn.remove();
+            }
+            
+            container.insertAdjacentHTML('beforeend', html);
+        }
+
+        // CREAR HTML DE UNA PELÍCULA - SIN ALT ATTRIBUTE
+        function createMovieCardHTML(movie) {
+            return `
+            <div class="movie-card" data-movie-id="${movie.id}">
+                <div class="movie-image-container">
+                    <img data-src="images/${movie.image}" 
+                         src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='170' viewBox='0 0 300 170'><rect width='100%' height='100%' fill='%231a1a1a'/></svg>"
+                         class="movie-image">
+                    <div class="movie-year-badge">${movie.ano || 'N/A'}</div>
+                </div>
+                
+                <div class="movie-content">
+                    <h3 class="movie-title">${movie.titulo}</h3>
+                    <p class="movie-spanish">${movie.espanol || ''}</p>
+                    
+                    <div class="movie-genres">
+                        ${movie.generos ? movie.generos.slice(0, 3).map(g => 
+                            `<span class="genre-tag">${g}</span>`
+                        ).join('') : ''}
+                        ${movie.generos && movie.generos.length > 3 ? 
+                            '<span class="genre-tag">...</span>' : ''}
+                    </div>
+                    
+                    <button class="synopsis-btn" onclick="openSynopsisModal(${movie.id})">
+                        Ver sinopsis
+                    </button>
+                </div>
+            </div>
+            `;
+        }
+
+        // OBSERVAR NUEVAS IMÁGENES
+        function observeNewImages() {
+            if (!imageObserver) return;
+            
+            const images = document.querySelectorAll('.movie-image[data-src]');
+            images.forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // AGREGAR BOTÓN "CARGAR MÁS"
+        function addLoadMoreButton() {
+            const container = document.getElementById('moviesContainer');
+            const existingBtn = container.querySelector('.load-more-btn');
+            
+            if (!existingBtn) {
+                const button = document.createElement('button');
+                button.className = 'load-more-btn';
+                button.textContent = 'Cargar más películas';
+                button.onclick = () => filterAndLoadMovies();
+                container.appendChild(button);
+            }
+        }
+
+        // REMOVER BOTÓN "CARGAR MÁS"
+        function removeLoadMoreButton() {
+            const container = document.getElementById('moviesContainer');
+            const button = container.querySelector('.load-more-btn');
+            if (button) {
+                button.remove();
+            }
+        }
+
+        // ABRIR MODAL
         function openSynopsisModal(movieId) {
             const movie = movies.find(m => m.id === movieId);
             if (!movie) return;
@@ -728,9 +808,7 @@
             
             content.innerHTML = `
                 <div class="modal-image-container">
-                    <img src="images/${movie.image}" 
-                         alt="${movie.titulo}"
-                         class="modal-image">
+                    <img src="images/${movie.image}" class="modal-image">
                 </div>
                 
                 <div class="modal-original-title">${movie.titulo}</div>
@@ -739,9 +817,9 @@
                 <div class="modal-year">${movie.ano || 'N/A'}</div>
                 
                 <div class="modal-genres">
-                    ${movie.generos && Array.isArray(movie.generos) 
-                        ? movie.generos.map(g => `<span class="modal-genre-tag">${g}</span>`).join('') 
-                        : ''}
+                    ${movie.generos ? movie.generos.map(g => 
+                        `<span class="modal-genre-tag">${g}</span>`
+                    ).join('') : ''}
                 </div>
                 
                 <div class="modal-section-title">Sinopsis</div>
@@ -762,40 +840,43 @@
 
         // CONFIGURAR EVENTOS
         function setupEvents() {
-            const searchInput = document.getElementById('searchInput');
+            // Búsqueda
             let searchTimeout;
-            
-            searchInput.addEventListener('input', function() {
+            document.getElementById('searchInput').addEventListener('input', function() {
                 clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(filterMovies, 300);
+                searchTimeout = setTimeout(() => {
+                    currentPage = 1;
+                    filterAndLoadMovies();
+                }, 400);
             });
             
-            // Cerrar modal con tecla ESC
-            document.addEventListener('keydown', function(e) {
+            // Scroll infinito
+            window.addEventListener('scroll', () => {
+                if (isLoading) return;
+                
+                const scrollPosition = window.innerHeight + window.scrollY;
+                const pageHeight = document.documentElement.scrollHeight;
+                
+                if (scrollPosition >= pageHeight - CONFIG.lazyLoadThreshold) {
+                    const hasMoreMovies = (currentPage * CONFIG.itemsPerPage) < filteredMovies.length;
+                    if (hasMoreMovies) {
+                        filterAndLoadMovies();
+                    }
+                }
+            });
+            
+            // Cerrar modal con ESC
+            document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     closeSynopsisModal();
                 }
             });
-            
-            // Cerrar modal al tocar fuera
-            document.getElementById('synopsisModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeSynopsisModal();
-                }
-            });
-            
-            // Focus en buscador
-            searchInput.focus();
         }
 
         // ============================================
         // INICIALIZAR
         // ============================================
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initApp);
-        } else {
-            initApp();
-        }
+        document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
 </html>
