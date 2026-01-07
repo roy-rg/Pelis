@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🎬 Mi Catálogo</title>
     <style>
-        /* RESET MOBILE-FIRST */
+        /* RESET Y ESTILOS BASE */
         * {
             margin: 0;
             padding: 0;
@@ -14,154 +14,153 @@
         }
         
         html {
-            font-size: 13px; /* Más pequeño aún */
+            font-size: 13px;
             height: 100%;
             -webkit-text-size-adjust: 100%;
         }
         
+        /* FONDO FIJO */
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+            color: white;
             line-height: 1.5;
             min-height: 100vh;
             padding: 0;
             margin: 0;
             overflow-x: hidden;
-        }
-        
-        /* CONTAINER PRINCIPAL */
-        .app-container {
-            min-height: 100vh;
-            background: white;
-            border-radius: 0;
-            box-shadow: none;
-            overflow-x: hidden;
             position: relative;
         }
         
-        /* HEADER MÁS COMPACTO */
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 15px;
-            position: sticky;
+        body::before {
+            content: '';
+            position: fixed;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            z-index: -2;
         }
         
-        .header h1 {
-            font-size: 1.4rem;
-            margin-bottom: 2px;
-            font-weight: 700;
+        /* OVERLAY OSCURO */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(2px);
+            z-index: -1;
         }
         
-        .header p {
-            font-size: 0.8rem;
-            opacity: 0.9;
+        /* CONTENEDOR PRINCIPAL */
+        .app-container {
+            min-height: 100vh;
+            padding: 15px;
+            position: relative;
         }
         
-        /* BUSCADOR COMPACTO */
+        /* BUSCADOR CRISTAL */
         .search-container {
+            margin-bottom: 15px;
             position: sticky;
-            top: 75px;
+            top: 15px;
             z-index: 90;
-            background: white;
-            padding: 10px 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         
         #searchInput {
             width: 100%;
-            padding: 10px 14px;
-            font-size: 0.9rem;
-            border: none;
-            border-radius: 20px;
-            background: #f5f7fa;
-            color: #333;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            padding: 14px 18px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
             outline: none;
-            -webkit-appearance: none;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
         
-        /* GÉNEROS - MUCHO MÁS PEQUEÑOS Y COMPACTOS */
+        #searchInput::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        #searchInput:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        /* GÉNEROS COMPACTOS CRISTAL */
         .genres-container {
-            padding: 10px 15px;
-            background: white;
-            position: relative;
-            z-index: 80;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            max-height: 140px;
+            max-height: 130px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            padding: 10px 0;
         }
         
         .genre-btn {
-            padding: 6px 10px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            padding: 7px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             font-size: 0.75rem;
-            color: #4a5568;
+            color: white;
             font-weight: 500;
             cursor: pointer;
-            user-select: none;
-            transition: all 0.2s;
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            min-height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             flex: 0 0 auto;
-        }
-        
-        .genre-btn:active {
-            transform: scale(0.95);
+            transition: all 0.3s;
         }
         
         .genre-btn.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-            font-weight: 600;
+            background: rgba(102, 126, 234, 0.6);
+            border-color: rgba(255, 255, 255, 0.4);
         }
         
-        /* PELÍCULAS - 2 POR FILA */
+        /* PELÍCULAS 2x2 CRISTAL */
         .movies-container {
-            padding: 12px;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 12px;
             padding-bottom: 70px;
         }
         
         .movie-card {
-            background: white;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             height: 100%;
-            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-out;
         }
         
-        .movie-card:active {
-            transform: scale(0.98);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .movie-image-container {
             position: relative;
             width: 100%;
-            height: 170px;
+            height: 180px;
             overflow: hidden;
         }
         
@@ -174,29 +173,29 @@
         
         .movie-year-badge {
             position: absolute;
-            top: 6px;
-            right: 6px;
-            background: rgba(72, 187, 120, 0.95);
+            top: 10px;
+            right: 10px;
+            background: rgba(72, 187, 120, 0.85);
             color: white;
-            padding: 3px 7px;
-            border-radius: 8px;
-            font-size: 0.65rem;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.7rem;
             font-weight: 600;
         }
         
         .movie-content {
-            padding: 10px;
+            padding: 15px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
         
         .movie-title {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 2px;
-            line-height: 1.2;
+            color: white;
+            margin-bottom: 3px;
+            line-height: 1.3;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -204,52 +203,42 @@
         }
         
         .movie-spanish {
-            font-size: 0.75rem;
-            color: #718096;
-            margin-bottom: 6px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
             font-style: italic;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
         
         .movie-genres {
             display: flex;
             flex-wrap: wrap;
-            gap: 3px;
-            margin-bottom: 8px;
+            gap: 4px;
+            margin-bottom: 10px;
         }
         
         .genre-tag {
-            background: #e2e8f0;
-            padding: 2px 6px;
-            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 3px 8px;
+            border-radius: 8px;
             font-size: 0.65rem;
-            color: #4a5568;
+            color: rgba(255, 255, 255, 0.9);
         }
         
-        /* BOTÓN DE SINOPSIS */
+        /* BOTÓN VER SINOPSIS */
         .synopsis-btn {
             width: 100%;
-            background: #667eea;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            border: none;
-            padding: 7px;
-            border-radius: 6px;
-            font-size: 0.75rem;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
             margin-top: auto;
         }
         
-        .synopsis-btn:active {
-            background: #5a67d8;
-            transform: scale(0.98);
-        }
-        
-        /* MODAL DE SINOPSIS - PANTALLA COMPLETA */
+        /* MODAL CRISTAL */
         .synopsis-modal {
             display: none;
             position: fixed;
@@ -257,41 +246,42 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: white;
+            background: rgba(0, 0, 0, 0.85);
             z-index: 1000;
-            padding: 0;
-            margin: 0;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            animation: slideIn 0.3s ease-out;
         }
         
-        @keyframes slideIn {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
+        .modal-content {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin: 15px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
         }
         
         .modal-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1001;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .modal-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 700;
+            color: white;
         }
         
         .close-btn {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            border: none;
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -302,45 +292,41 @@
             justify-content: center;
         }
         
-        .modal-content {
+        .modal-body {
             padding: 20px;
         }
         
         .modal-image {
             width: 100%;
-            height: 300px;
+            height: 250px;
             object-fit: cover;
-            border-radius: 12px;
+            border-radius: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        
-        .modal-details {
-            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .modal-original-title {
             font-size: 1.8rem;
             font-weight: 800;
-            color: #2d3748;
-            margin-bottom: 5px;
+            color: white;
+            margin-bottom: 8px;
             line-height: 1.2;
         }
         
         .modal-spanish-title {
-            font-size: 1.4rem;
-            color: #718096;
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 15px;
             font-style: italic;
         }
         
         .modal-year {
             display: inline-block;
-            background: #48bb78;
+            background: rgba(72, 187, 120, 0.8);
             color: white;
             padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 20px;
         }
@@ -353,98 +339,96 @@
         }
         
         .modal-genre-tag {
-            background: #e2e8f0;
+            background: rgba(255, 255, 255, 0.15);
             padding: 6px 12px;
             border-radius: 10px;
-            font-size: 0.9rem;
-            color: #4a5568;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
         }
         
         .modal-section-title {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 12px;
+            color: white;
+            margin-bottom: 15px;
             padding-bottom: 8px;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .modal-synopsis {
-            font-size: 1.05rem;
+            font-size: 1rem;
             line-height: 1.6;
-            color: #4a5568;
-            padding: 15px;
-            background: #f8fafc;
-            border-radius: 12px;
-            border-left: 4px solid #667eea;
+            color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
         }
         
         /* SIN RESULTADOS */
         .no-results {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 40px 20px;
-            color: #718096;
+            padding: 50px 20px;
+            color: rgba(255, 255, 255, 0.7);
         }
         
         .no-results h3 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 10px;
-            color: #4a5568;
+            color: white;
         }
         
-        /* FOOTER MÓVIL MÁS COMPACTO */
+        /* FOOTER MÓVIL */
         .mobile-footer {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: white;
-            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 12px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
             z-index: 100;
         }
         
         .movie-count {
-            font-size: 0.8rem;
-            color: #4a5568;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
         }
         
         #movieCount {
             font-weight: bold;
-            color: #667eea;
+            color: white;
         }
         
         .filter-btn {
-            background: #edf2f7;
-            color: #4a5568;
-            border: none;
-            padding: 7px 14px;
-            border-radius: 15px;
-            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
         
-        /* SAFARI iOS FIXES */
+        /* SAFARI iOS */
         @supports (-webkit-touch-callout: none) {
-            .app-container {
-                min-height: -webkit-fill-available;
+            body::before {
+                background-attachment: scroll;
             }
             
-            .header {
-                padding-top: max(12px, env(safe-area-inset-top));
-                padding-left: max(15px, env(safe-area-inset-left));
-                padding-right: max(15px, env(safe-area-inset-right));
+            .app-container {
+                min-height: -webkit-fill-available;
+                padding-top: max(15px, env(safe-area-inset-top));
+                padding-bottom: max(15px, env(safe-area-inset-bottom));
             }
             
             .mobile-footer {
-                padding-bottom: max(8px, env(safe-area-inset-bottom));
+                padding-bottom: max(12px, env(safe-area-inset-bottom));
             }
             
             .synopsis-modal {
@@ -453,7 +437,7 @@
             }
         }
         
-        /* TABLETS Y PANTALLAS GRANDES */
+        /* TABLETS */
         @media (min-width: 768px) {
             html {
                 font-size: 14px;
@@ -461,126 +445,87 @@
             
             .movies-container {
                 grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
+                gap: 15px;
             }
             
             .movie-image-container {
-                height: 190px;
+                height: 200px;
             }
             
-            .genres-container {
-                gap: 8px;
-            }
-            
-            .genre-btn {
-                padding: 7px 12px;
-                font-size: 0.8rem;
-            }
-        }
-        
-        /* PANTALLAS MUY GRANDES */
-        @media (min-width: 1024px) {
-            body {
-                padding: 15px;
-                background: #f5f7fa;
-            }
-            
-            .app-container {
-                max-width: 480px;
-                margin: 0 auto;
-                min-height: 90vh;
-                border-radius: 20px;
-                overflow: hidden;
-                box-shadow: 0 15px 50px rgba(0,0,0,0.2);
-            }
-            
-            .mobile-footer {
-                border-radius: 0 0 20px 20px;
-            }
-            
-            .synopsis-modal {
-                max-width: 480px;
-                left: 50%;
-                transform: translateX(-50%);
-                border-radius: 20px;
-                top: 15px;
-                bottom: 15px;
-                height: calc(100vh - 30px);
+            .modal-content {
+                max-width: 500px;
+                margin: 30px auto;
             }
         }
     </style>
 </head>
 <body>
     <div class="app-container">
-        <!-- HEADER -->
-        <header class="header">
-            <h1>🎬 Mi Catálogo</h1>
-            <p>Películas para copiar en USB</p>
-        </header>
-
         <!-- BUSCADOR -->
         <div class="search-container">
             <input type="text" id="searchInput" 
-                   placeholder="🔍 Buscar por título..."
+                   placeholder="Buscar por título..."
                    autocomplete="off"
                    autocapitalize="off"
                    spellcheck="false">
         </div>
 
-        <!-- GÉNEROS MÁS COMPACTOS -->
+        <!-- GÉNEROS -->
         <div class="genres-container" id="genresContainer">
             <!-- Generado por JavaScript -->
         </div>
 
-        <!-- PELÍCULAS 2x2 -->
+        <!-- PELÍCULAS -->
         <div class="movies-container" id="moviesContainer">
             <div class="no-results">Cargando catálogo...</div>
         </div>
-
-        <!-- FOOTER MÓVIL -->
-        <footer class="mobile-footer">
-            <div class="movie-count">
-                <span id="movieCount">0</span> películas
-            </div>
-            <button class="filter-btn" onclick="resetFilters()">
-                🔄 Todas
-            </button>
-        </footer>
     </div>
 
-    <!-- MODAL DE SINOPSIS (OCULTO INICIALMENTE) -->
-    <div class="synopsis-modal" id="synopsisModal">
-        <div class="modal-header">
-            <div class="modal-title">🎬 Sinopsis Completa</div>
-            <button class="close-btn" onclick="closeSynopsisModal()">×</button>
+    <!-- FOOTER -->
+    <footer class="mobile-footer">
+        <div class="movie-count">
+            <span id="movieCount">0</span> películas
         </div>
-        <div class="modal-content" id="modalContent">
-            <!-- Se llena dinámicamente -->
+        <button class="filter-btn" onclick="resetFilters()">
+            Ver todas
+        </button>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="synopsis-modal" id="synopsisModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Sinopsis Completa</div>
+                <button class="close-btn" onclick="closeSynopsisModal()">×</button>
+            </div>
+            <div class="modal-body" id="modalContent">
+                <!-- Se llena dinámicamente -->
+            </div>
         </div>
     </div>
 
     <script>
         // ============================================
-        // DATOS DE PELÍCULAS
+        // DATOS DE PELÍCULAS DIRECTAMENTE EN EL CÓDIGO
         // ============================================
         const movies = [
             {
                 id: 1,
-                image: "bridges.jpg",
+                image: "bridge.jpg",
                 titulo: "Avatar",
                 espanol: "Avatar",
                 ano: 2009,
                 generos: ["Ciencia Ficción", "Aventura", "Acción"],
-                sinopsis: "Un marine parapléjico es enviado a la luna Pandora en una misión única, pero se debate entre seguir sus órdenes y proteger el mundo que considera su hogar. Una epopeya visual que revolucionó el cine 3D con sus impresionantes efectos especiales y mundo alienígena detallado."
+                sinopsis: "Un marine parapléjico es enviado a la luna Pandora en una misión única, pero se debate entre seguir sus órdenes y proteger el mundo que considera su hogar."
             },
             {
                 id: 2,
-                image: "lives.jpg",
+                image: "metros.jpg",
                 titulo: "The Godfather",
                 espanol: "El Padrino",
                 ano: 1972,
                 generos: ["Drama", "Crimen"],
-                sinopsis: "El patriarca de una dinastía del crimen transfiere el control de su imperio clandestino a su hijo reacio. Considerada una de las mejores películas de la historia, explora temas de poder, familia y corrupción en el mundo de la mafia italiana en Nueva York."
+                sinopsis: "El patriarca de una dinastía del crimen transfiere el control de su imperio clandestino a su hijo reacio."
             },
             {
                 id: 3,
@@ -589,16 +534,16 @@
                 espanol: "Parásitos",
                 ano: 2019,
                 generos: ["Drama", "Comedia", "Suspense"],
-                sinopsis: "Una familia pobre se hace pasar por tutores altamente cualificados para infiltrarse en un hogar adinerado. Ganadora del Oscar a Mejor Película, mezcla hábilmente sátira social con thriller psicológico en un comentario sobre la desigualdad de clases."
+                sinopsis: "Una familia pobre se hace pasar por tutores altamente cualificados para infiltrarse en un hogar adinerado."
             },
             {
                 id: 4,
-                image: "notime.jpg",
+                image: "lives.jpg",
                 titulo: "Toy Story",
                 espanol: "Toy Story",
                 ano: 1995,
                 generos: ["Animación", "Aventura", "Comedia"],
-                sinopsis: "Los juguetes de un niño cobran vida cuando los humanos no están presentes, liderados por el vaquero Woody. La primera película completamente animada por computadora de Pixar, que inició una franquicia exitosa sobre la amistad y la lealtad."
+                sinopsis: "Los juguetes de un niño cobran vida cuando los humanos no están presentes, liderados por el vaquero Woody."
             },
             {
                 id: 5,
@@ -607,7 +552,7 @@
                 espanol: "El viaje de Chihiro",
                 ano: 2001,
                 generos: ["Animación", "Aventura", "Fantasía"],
-                sinopsis: "Durante la mudanza a los suburbios, una familia se desvía hacia un pueblo donde una chica debe salvar a sus padres de un hechizo. Obra maestra de Studio Ghibli que explora la transición de la infancia a la adolescencia a través de un mundo espiritual japonés."
+                sinopsis: "Durante la mudanza a los suburbios, una familia se desvía hacia un pueblo donde una chica debe salvar a sus padres de un hechizo."
             },
             {
                 id: 6,
@@ -616,7 +561,7 @@
                 espanol: "Matrix",
                 ano: 1999,
                 generos: ["Ciencia Ficción", "Acción"],
-                sinopsis: "Un hacker descubre la verdad sobre su realidad y su papel en la guerra contra sus controladores. Revolucionó los efectos visuales con su tecnología 'bullet time' y plantea preguntas filosóficas sobre la realidad, la libertad y el destino humano."
+                sinopsis: "Un hacker descubre la verdad sobre su realidad y su papel en la guerra contra sus controladores."
             },
             {
                 id: 7,
@@ -625,7 +570,7 @@
                 espanol: "Titanic",
                 ano: 1997,
                 generos: ["Drama", "Romance"],
-                sinopsis: "Una joven de la alta sociedad y un artista pobre se enamoran a bordo del lujoso transatlántico en su viaje inaugural. Combinando romance épico con desastre histórico, se convirtió en una de las películas más taquilleras de todos los tiempos."
+                sinopsis: "Una joven de la alta sociedad y un artista pobre se enamoran a bordo del lujoso transatlántico en su viaje inaugural."
             },
             {
                 id: 8,
@@ -634,7 +579,7 @@
                 espanol: "Interestelar",
                 ano: 2014,
                 generos: ["Ciencia Ficción", "Drama", "Aventura"],
-                sinopsis: "Un grupo de astronautas viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad. Dirigida por Christopher Nolan, mezcla ciencia avanzada con drama emocional en una exploración del tiempo, el espacio y el amor paternal."
+                sinopsis: "Un grupo de astronautas viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad."
             },
             {
                 id: 9,
@@ -643,7 +588,7 @@
                 espanol: "Gladiador",
                 ano: 2000,
                 generos: ["Acción", "Drama", "Aventura"],
-                sinopsis: "Un general romano es traicionado y su familia asesinada por el hijo corrupto del emperador. Épica histórica que combina acción espectacular con una historia de venganza y redención en la antigua Roma."
+                sinopsis: "Un general romano es traicionado y su familia asesinada por el hijo corrupto del emperador."
             },
             {
                 id: 10,
@@ -652,7 +597,7 @@
                 espanol: "Tiempos Violentos",
                 ano: 1994,
                 generos: ["Crimen", "Drama"],
-                sinopsis: "Las vidas de dos matones, un boxeador y una pareja de atracadores se entrelazan en cuatro historias de violencia en Los Ángeles. Icono del cine independiente de los 90, famosa por su diálogo ingenioso, estructura no lineal y estilo visual distintivo."
+                sinopsis: "Las vidas de dos matones, un boxeador y una pareja de atracadores se entrelazan en cuatro historias de violencia en Los Ángeles."
             }
         ];
 
@@ -661,27 +606,27 @@
         // ============================================
         let selectedGenres = new Set();
         let allMovies = movies;
-        let currentModalMovie = null;
 
         // ============================================
-        // FUNCIONES PRINCIPALES
+        // FUNCIONES PRINCIPALES - SIMPLIFICADAS
         // ============================================
 
-        // INICIAR APLICACIÓN
+        // INICIAR APLICACIÓN - CORREGIDO
         function initApp() {
-            console.log("📱 Iniciando app móvil...");
+            console.log("🚀 Iniciando aplicación...");
             
             // Crear botones de géneros
             createGenreButtons();
             
-            // Mostrar todas las películas
-            filterMovies();
+            // Mostrar todas las películas inmediatamente
+            displayMovies(allMovies);
+            updateMovieCount(allMovies.length);
             
             // Configurar eventos
             setupEvents();
         }
 
-        // CREAR BOTONES DE GÉNEROS (SUPER COMPACTOS)
+        // CREAR BOTONES DE GÉNEROS
         function createGenreButtons() {
             const container = document.getElementById('genresContainer');
             const uniqueGenres = new Set();
@@ -703,12 +648,9 @@
             allButton.dataset.genre = 'all';
             
             allButton.addEventListener('click', function() {
-                // Deseleccionar todos
                 document.querySelectorAll('.genre-btn').forEach(btn => {
                     btn.classList.remove('active');
                 });
-                
-                // Seleccionar "Todas"
                 this.classList.add('active');
                 selectedGenres.clear();
                 filterMovies();
@@ -724,13 +666,11 @@
                 button.dataset.genre = genre;
                 
                 button.addEventListener('click', function() {
-                    // Deseleccionar "Todas" si está activa
                     const allBtn = document.querySelector('[data-genre="all"]');
                     if (allBtn && allBtn.classList.contains('active')) {
                         allBtn.classList.remove('active');
                     }
                     
-                    // Toggle selección
                     this.classList.toggle('active');
                     
                     if (selectedGenres.has(genre)) {
@@ -739,7 +679,6 @@
                         selectedGenres.add(genre);
                     }
                     
-                    // Si no hay géneros seleccionados, activar "Todas"
                     if (selectedGenres.size === 0) {
                         allBtn.classList.add('active');
                     }
@@ -755,7 +694,6 @@
         function filterMovies() {
             const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
             
-            // Filtrar por texto
             let filteredMovies = allMovies.filter(movie => {
                 if (searchText === '') return true;
                 
@@ -765,24 +703,21 @@
                 return title.includes(searchText) || spanish.includes(searchText);
             });
             
-            // Filtrar por CRUCE de géneros
             if (selectedGenres.size > 0) {
                 filteredMovies = filteredMovies.filter(movie => {
                     if (!movie.generos || !Array.isArray(movie.generos)) return false;
                     
-                    // DEBE tener TODOS los géneros seleccionados
                     return Array.from(selectedGenres).every(selectedGenre => 
                         movie.generos.includes(selectedGenre)
                     );
                 });
             }
             
-            // Mostrar resultados
             displayMovies(filteredMovies);
             updateMovieCount(filteredMovies.length);
         }
 
-        // MOSTRAR PELÍCULAS (2 POR FILA)
+        // MOSTRAR PELÍCULAS - CORREGIDO
         function displayMovies(movies) {
             const container = document.getElementById('moviesContainer');
             
@@ -803,13 +738,12 @@
                 const imagePath = `images/${movie.image}`;
                 
                 html += `
-                <div class="movie-card" data-movie-id="${movieId}">
+                <div class="movie-card">
                     <div class="movie-image-container">
                         <img src="${imagePath}" 
                              alt="${movie.titulo}"
                              class="movie-image"
-                             loading="lazy"
-                             onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"300\" height=\"170\" viewBox=\"0 0 300 170\"><rect width=\"100%\" height=\"100%\" fill=\"%23667eea\"/><text x=\"150\" y=\"85\" text-anchor=\"middle\" fill=\"white\" font-family=\"Arial\" font-size=\"14\">${movie.titulo}</text></svg>';">
+                             loading="lazy">
                         <div class="movie-year-badge">${movie.ano || 'N/A'}</div>
                     </div>
                     
@@ -825,7 +759,7 @@
                         </div>
                         
                         <button class="synopsis-btn" onclick="openSynopsisModal(${movieId})">
-                            📖 Ver sinopsis
+                            Ver sinopsis
                         </button>
                     </div>
                 </div>
@@ -840,8 +774,6 @@
             const movie = allMovies.find(m => m.id === movieId);
             if (!movie) return;
             
-            currentModalMovie = movie;
-            
             const modal = document.getElementById('synopsisModal');
             const content = document.getElementById('modalContent');
             const imagePath = `images/${movie.image}`;
@@ -849,25 +781,22 @@
             content.innerHTML = `
                 <img src="${imagePath}" 
                      alt="${movie.titulo}"
-                     class="modal-image"
-                     onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"300\" height=\"300\" viewBox=\"0 0 300 300\"><rect width=\"100%\" height=\"100%\" fill=\"%23667eea\"/><text x=\"150\" y=\"150\" text-anchor=\"middle\" fill=\"white\" font-family=\"Arial\" font-size=\"24\">${movie.titulo}</text></svg>';">
+                     class="modal-image">
                 
-                <div class="modal-details">
-                    <h1 class="modal-original-title">${movie.titulo}</h1>
-                    <h2 class="modal-spanish-title">${movie.espanol || ''}</h2>
-                    
-                    <div class="modal-year">${movie.ano || 'N/A'}</div>
-                    
-                    <div class="modal-genres">
-                        ${movie.generos && Array.isArray(movie.generos) 
-                            ? movie.generos.map(g => `<span class="modal-genre-tag">${g}</span>`).join('') 
-                            : ''}
-                    </div>
-                    
-                    <div class="modal-section-title">Sinopsis</div>
-                    <div class="modal-synopsis">
-                        ${movie.sinopsis || 'Sin sinopsis disponible.'}
-                    </div>
+                <div class="modal-original-title">${movie.titulo}</div>
+                <div class="modal-spanish-title">${movie.espanol || ''}</div>
+                
+                <div class="modal-year">${movie.ano || 'N/A'}</div>
+                
+                <div class="modal-genres">
+                    ${movie.generos && Array.isArray(movie.generos) 
+                        ? movie.generos.map(g => `<span class="modal-genre-tag">${g}</span>`).join('') 
+                        : ''}
+                </div>
+                
+                <div class="modal-section-title">Sinopsis</div>
+                <div class="modal-synopsis">
+                    ${movie.sinopsis || 'Sin sinopsis disponible.'}
                 </div>
             `;
             
@@ -875,19 +804,11 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // CERRAR MODAL DE SINOPSIS
+        // CERRAR MODAL
         function closeSynopsisModal() {
             const modal = document.getElementById('synopsisModal');
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
-            currentModalMovie = null;
-        }
-
-        // CERRAR MODAL CON TECLA ESC
-        function handleEscapeKey(e) {
-            if (e.key === 'Escape') {
-                closeSynopsisModal();
-            }
         }
 
         // ACTUALIZAR CONTADOR
@@ -897,15 +818,12 @@
 
         // REINICIAR FILTROS
         function resetFilters() {
-            // Limpiar búsqueda
             document.getElementById('searchInput').value = '';
             
-            // Deseleccionar todos los géneros
             document.querySelectorAll('.genre-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            // Seleccionar "Todas"
             const allBtn = document.querySelector('[data-genre="all"]');
             if (allBtn) {
                 allBtn.classList.add('active');
@@ -913,34 +831,27 @@
             
             selectedGenres.clear();
             
-            // Mostrar todas
             displayMovies(allMovies);
             updateMovieCount(allMovies.length);
             
-            // Focus en buscador
             document.getElementById('searchInput').focus();
         }
 
         // CONFIGURAR EVENTOS
         function setupEvents() {
-            // Búsqueda en tiempo real con debounce
+            // Búsqueda en tiempo real
             let searchTimeout;
             document.getElementById('searchInput').addEventListener('input', function() {
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(filterMovies, 300);
             });
             
-            // Cerrar teclado al hacer scroll
-            let scrollTimer;
-            window.addEventListener('scroll', function() {
-                clearTimeout(scrollTimer);
-                scrollTimer = setTimeout(() => {
-                    document.activeElement.blur();
-                }, 100);
-            });
-            
             // Cerrar modal con tecla ESC
-            document.addEventListener('keydown', handleEscapeKey);
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeSynopsisModal();
+                }
+            });
             
             // Cerrar modal al tocar fuera
             document.getElementById('synopsisModal').addEventListener('click', function(e) {
@@ -949,14 +860,24 @@
                 }
             });
             
-            // Focus automático en buscador
+            // Focus automático
             document.getElementById('searchInput').focus();
         }
 
         // ============================================
-        // INICIAR AL CARGAR
+        // INICIAR INMEDIATAMENTE
         // ============================================
-        document.addEventListener('DOMContentLoaded', initApp);
+        
+        // Usar DOMContentLoaded O cargar inmediatamente si ya está listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            // Si el DOM ya está cargado, iniciar inmediatamente
+            initApp();
+        }
+        
+        // También intentar iniciar después de un breve retraso por si acaso
+        setTimeout(initApp, 100);
     </script>
 </body>
 </html>
