@@ -12,7 +12,7 @@
 
 /* Configuración del HTML */
 html {
-    font-size: 13px;           /* Tamaño base de fuente (1rem = 13px) */
+    font-size: 16px;           /* Tamaño base de fuente (1rem = 13px) */
     height: 100%;              /* Ocupa el 100% de la altura */
 }
 
@@ -26,7 +26,13 @@ body {
     line-height: 1.4;          /* Espacio entre líneas (140% del tamaño de fuente) */
     min-height: 100vh;         /* Mínimo 100% de la altura visible (viewport height) */
     overflow-x: hidden;        /* Oculta el scroll horizontal */
-    background: #130a0f;       /* Color de fondo (#130a0f = negro rojizo oscuro) */
+    /*background: linear-gradient(315deg, rgb(38, 9, 48), rgb(64, 34, 20), rgb(20, 21, 64)) fixed;;       /* Color de fondo (#130a0f = negro rojizo oscuro) */
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%),
+        linear-gradient(315deg, rgb(21, 10, 25), rgb(35, 25, 20), rgb(10, 10, 45));
+    background-attachment: fixed;
+    background-size: cover; 
 }
 
 /* =========================================== */
@@ -46,9 +52,9 @@ body {
 .header {
     text-align: center;        /* Centra el texto horizontalmente */
     padding: 18px 15px 15px;   /* Relleno: arriba 18px, lados 15px, abajo 15px */
-    background: rgba(15, 15, 15, 0.95); /* Fondo negro semi-transparente (95% opaco) */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Línea inferior blanca tenue */
-    position: relative;        /* Posicionamiento para posibles elementos absolutos */
+    background:  rgba(86, 96, 12, 0); /* Fondo negro semi-transparente (95% opaco) */
+    position: relative;  
+    font-family: 'Times New Roman', Times, serif;      /* Posicionamiento para posibles elementos absolutos */
 }
 
 .header h1 {
@@ -64,7 +70,7 @@ body {
 
 .search-container {
     margin: 12px 15px;         /* Margen exterior: 12px arriba/abajo, 15px lados */
-    position: relative;        /* Para posicionar elementos dentro si es necesario */
+    position: relative;      /* Para posicionar elementos dentro si es necesario */
 }
 
 /* Campo de entrada de búsqueda */
@@ -75,9 +81,9 @@ body {
     font-weight: 400;          /* Grosor normal */
     border: 1px solid rgba(255, 255, 255, 0.2); /* Borde blanco semi-transparente */
     border-radius: 10px;       /* Esquinas redondeadas de 10px */
-    background: rgba(25, 25, 25, 0.9); /* Fondo gris oscuro semi-transparente */
+    background: rgba(25, 25, 25, 0); /* Fondo gris oscuro semi-transparente */
     color: white;              /* Texto blanco */
-    outline: none;             /* Elimina el contorno azul al hacer focus */
+    outline: none;          /* Elimina el contorno azul al hacer focus */
 }
 
 /* Cuando el campo de búsqueda está enfocado (se hace clic en él) */
@@ -112,14 +118,16 @@ body {
     border-radius: 8px;        /* Esquinas redondeadas de 8px */
     color: white;              /* Texto blanco */
     cursor: pointer;           /* Cambia el cursor a mano al pasar por encima */
-    background: rgba(30, 30, 30, 0.9); /* Fondo gris oscuro semi-transparente */
+    background: rgba(30, 30, 30, 0); /* Fondo gris oscuro semi-transparente */
     flex: 0 0 auto;            /* No crece, no encoge, tamaño automático */
+    
 }
 
 /* Botón de género cuando está activo/seleccionado */
 .genre-btn.active {
-    background: rgba(102, 126, 234, 0.8); /* Fondo azul violeta semi-transparente */
-    border-color: rgba(102, 126, 234, 0.6); /* Borde azul violeta */
+    background: linear-gradient(135deg, rgba(16, 11, 39, 0.9), rgba(61, 18, 18, 0.9)); /* Fondo azul violeta semi-transparente */
+    border-color: rgba(208, 216, 251, 0.993); /* Borde azul violeta */
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.13); ; 
 }
 
 /* =========================================== */
@@ -138,7 +146,7 @@ body {
 /* =========================================== */
 
 .movie-card {
-    background: rgba(25, 25, 25, 0.85); /* Fondo gris oscuro semi-transparente */
+    background: rgba(25, 25, 25, 0); /* Fondo gris oscuro semi-transparente */
     border: 1px solid rgba(255, 255, 255, 0.08); /* Borde blanco muy tenue */
     border-radius: 10px;               /* Esquinas redondeadas de 10px */
     overflow: hidden;                  /* Oculta contenido que sobresale */
@@ -175,11 +183,11 @@ body {
     top: 8px;                          /* 8px desde la parte superior */
     right: 8px;                        /* 8px desde la derecha */
     font-weight: 700;                  /* Texto en negrita */
-    background: rgba(72, 187, 120, 0.95); /* Fondo verde semi-transparente */
+    background: rgba(23, 5, 51, 0.95); /* Fondo verde semi-transparente */
     color: white;                      /* Texto blanco */
     padding: 3px 8px;                  /* Relleno: 3px arriba/abajo, 8px lados */
     border-radius: 8px;                /* Esquinas redondeadas de 8px */
-    font-size: 0.65rem;                /* Tamaño de fuente muy pequeño (~8.45px) */
+    font-size: 0.70rem;                /* Tamaño de fuente muy pequeño (~8.45px) */
 }
 
 /* =========================================== */
@@ -195,15 +203,16 @@ body {
 
 /* Título de la película */
 .movie-title {
-    font-size: 0.9rem;                 /* Tamaño de fuente (~11.7px) */
-    font-weight: 700;                  /* Texto en negrita */
-    color: white;                      /* Color blanco */
-    margin-bottom: 2px;                /* Margen inferior pequeño de 2px */
-    line-height: 1.2;                  /* Espaciado entre líneas (120% del tamaño) */
-    display: -webkit-box;              /* Necesario para limitar líneas de texto */
-    -webkit-line-clamp: 2;             /* Muestra máximo 2 líneas de texto */
-    -webkit-box-orient: vertical;      /* Orientación vertical para el límite de líneas */
-    overflow: hidden;                  /* Oculta el texto que excede las 2 líneas */
+  .movie-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2px;
+    line-height: 1.2;
+    white-space: normal;      /* Permite que el texto haga saltos de línea */
+    word-wrap: break-word;    /* Rompe palabras largas si es necesario */
+    overflow-wrap: break-word; /* Otra propiedad para romper palabras */
+}
 }
 
 /* Título en español */
@@ -456,7 +465,7 @@ body {
     line-height: 1.5;                  /* Espaciado entre líneas amplio (150%) */
     color: rgba(255, 255, 255, 0.9);   /* Texto blanco con 90% de opacidad */
     padding: 15px;                     /* Relleno interno */
-    background: rgba(255, 255, 255, 0.05); /* Fondo blanco muy tenue (5% opacidad) */
+    background: rgba(255, 255, 255, 0); /* Fondo blanco muy tenue (5% opacidad) */
     border-radius: 10px;               /* Esquinas redondeadas de 10px */
 }
 
