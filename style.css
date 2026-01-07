@@ -1,0 +1,554 @@
+/* =========================================== */
+/* RESET Y CONFIGURACIÓN BASE */
+/* =========================================== */
+
+/* Reset universal - Elimina márgenes y paddings por defecto */
+* {
+    margin: 0;                 /* Sin márgenes externos */
+    padding: 0;                /* Sin relleno interno */
+    box-sizing: border-box;    /* El padding y border se incluyen en el width/height */
+    -webkit-tap-highlight-color: transparent; /* Elimina el resaltado azul en móviles al tocar */
+}
+
+/* Configuración del HTML */
+html {
+    font-size: 13px;           /* Tamaño base de fuente (1rem = 13px) */
+    height: 100%;              /* Ocupa el 100% de la altura */
+}
+
+/* =========================================== */
+/* CUERPO DE LA PÁGINA */
+/* =========================================== */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Fuentes en orden de preferencia */
+    color: white;              /* Color de texto blanco */
+    line-height: 1.4;          /* Espacio entre líneas (140% del tamaño de fuente) */
+    min-height: 100vh;         /* Mínimo 100% de la altura visible (viewport height) */
+    overflow-x: hidden;        /* Oculta el scroll horizontal */
+    background: #130a0f;       /* Color de fondo (#130a0f = negro rojizo oscuro) */
+}
+
+/* =========================================== */
+/* CONTENEDOR PRINCIPAL */
+/* =========================================== */
+
+.app-container {
+    min-height: 100vh;         /* Ocupa al menos toda la pantalla */
+    position: relative;        /* Posicionamiento relativo para elementos hijos */
+    z-index: 1;                /* Está por encima del fondo */
+}
+
+/* =========================================== */
+/* CABECERA (HEADER) */
+/* =========================================== */
+
+.header {
+    text-align: center;        /* Centra el texto horizontalmente */
+    padding: 18px 15px 15px;   /* Relleno: arriba 18px, lados 15px, abajo 15px */
+    background: rgba(15, 15, 15, 0.95); /* Fondo negro semi-transparente (95% opaco) */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Línea inferior blanca tenue */
+    position: relative;        /* Posicionamiento para posibles elementos absolutos */
+}
+
+.header h1 {
+    font-size: 2rem;           /* Tamaño de fuente: 2 veces el tamaño base (26px) */
+    font-weight: 700;          /* Grosor de la fuente: negrita */
+    color: white;              /* Color blanco */
+    letter-spacing: 1px;       /* Espacio entre letras: 1px */
+}
+
+/* =========================================== */
+/* BUSCADOR (SEARCH) */
+/* =========================================== */
+
+.search-container {
+    margin: 12px 15px;         /* Margen exterior: 12px arriba/abajo, 15px lados */
+    position: relative;        /* Para posicionar elementos dentro si es necesario */
+}
+
+/* Campo de entrada de búsqueda */
+#searchInput {
+    width: 100%;               /* Ancho completo del contenedor padre */
+    padding: 12px 16px;        /* Relleno interno: 12px arriba/abajo, 16px lados */
+    font-size: 0.9rem;         /* Tamaño de fuente: 90% del tamaño base (~11.7px) */
+    font-weight: 400;          /* Grosor normal */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde blanco semi-transparente */
+    border-radius: 10px;       /* Esquinas redondeadas de 10px */
+    background: rgba(25, 25, 25, 0.9); /* Fondo gris oscuro semi-transparente */
+    color: white;              /* Texto blanco */
+    outline: none;             /* Elimina el contorno azul al hacer focus */
+}
+
+/* Cuando el campo de búsqueda está enfocado (se hace clic en él) */
+#searchInput:focus {
+    border-color: rgba(255, 255, 255, 0.4); /* Borde más visible */
+}
+
+/* Texto del placeholder (texto de ejemplo) */
+#searchInput::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Color gris claro semi-transparente */
+}
+
+/* =========================================== */
+/* BOTONES DE GÉNEROS */
+/* =========================================== */
+
+.genres-container {
+    margin: 0 15px 12px;       /* Margen: 0 arriba, 15px lados, 12px abajo */
+    display: flex;             /* Flexbox para alinear elementos en fila */
+    flex-wrap: wrap;           /* Permite que los elementos pasen a siguiente línea */
+    gap: 5px;                  /* Espacio entre elementos: 5px */
+    padding: 8px 0;            /* Relleno: 8px arriba/abajo, 0 lados */
+    position: relative;        /* Posicionamiento relativo */
+}
+
+/* Cada botón de género individual */
+.genre-btn {
+    padding: 6px 10px;         /* Relleno interno: 6px arriba/abajo, 10px lados */
+    font-size: 0.7rem;         /* Tamaño de fuente pequeña (~9.1px) */
+    font-weight: 400;          /* Grosor normal */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Borde blanco muy tenue */
+    border-radius: 8px;        /* Esquinas redondeadas de 8px */
+    color: white;              /* Texto blanco */
+    cursor: pointer;           /* Cambia el cursor a mano al pasar por encima */
+    background: rgba(30, 30, 30, 0.9); /* Fondo gris oscuro semi-transparente */
+    flex: 0 0 auto;            /* No crece, no encoge, tamaño automático */
+}
+
+/* Botón de género cuando está activo/seleccionado */
+.genre-btn.active {
+    background: rgba(102, 126, 234, 0.8); /* Fondo azul violeta semi-transparente */
+    border-color: rgba(102, 126, 234, 0.6); /* Borde azul violeta */
+}
+
+/* =========================================== */
+/* CONTENEDOR DE PELÍCULAS */
+/* =========================================== */
+
+.movies-container {
+    display: grid;                     /* Usa CSS Grid para layout */
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas de igual ancho */
+    gap: 10px;                         /* Espacio entre elementos de la grid: 10px */
+    padding: 0 15px 60px;              /* Relleno: 0 arriba, 15px lados, 60px abajo */
+}
+
+/* =========================================== */
+/* TARJETA DE PELÍCULA INDIVIDUAL */
+/* =========================================== */
+
+.movie-card {
+    background: rgba(25, 25, 25, 0.85); /* Fondo gris oscuro semi-transparente */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Borde blanco muy tenue */
+    border-radius: 10px;               /* Esquinas redondeadas de 10px */
+    overflow: hidden;                  /* Oculta contenido que sobresale */
+    display: flex;                     /* Flexbox para layout interno */
+    flex-direction: column;            /* Elementos apilados verticalmente */
+}
+
+/* =========================================== */
+/* CONTENEDOR DE IMAGEN DE PELÍCULA */
+/* =========================================== */
+
+.movie-image-container {
+    position: relative;                /* Para posicionar elementos hijos absolutamente */
+    width: 100%;                       /* Ancho completo de la tarjeta */
+    height: 170px;                     /* Altura fija de 170px */
+    overflow: hidden;                  /* Oculta partes de la imagen que sobresalgan */
+    background: rgba(0, 0, 0, 0.3);   /* Fondo negro semi-transparente (para mientras carga) */
+}
+
+/* Imagen dentro del contenedor */
+.movie-image {
+    width: 100%;                       /* Ancho completo del contenedor */
+    height: 100%;                      /* Altura completa del contenedor */
+    object-fit: cover;                 /* La imagen cubre el contenedor manteniendo proporción */
+    display: block;                    /* Elimina espacio inferior que tienen las imágenes inline */
+}
+
+/* =========================================== */
+/* BADGE DE AÑO (etiqueta del año) */
+/* =========================================== */
+
+.movie-year-badge {
+    position: absolute;                /* Posicionado respecto al contenedor de imagen */
+    top: 8px;                          /* 8px desde la parte superior */
+    right: 8px;                        /* 8px desde la derecha */
+    font-weight: 700;                  /* Texto en negrita */
+    background: rgba(72, 187, 120, 0.95); /* Fondo verde semi-transparente */
+    color: white;                      /* Texto blanco */
+    padding: 3px 8px;                  /* Relleno: 3px arriba/abajo, 8px lados */
+    border-radius: 8px;                /* Esquinas redondeadas de 8px */
+    font-size: 0.65rem;                /* Tamaño de fuente muy pequeño (~8.45px) */
+}
+
+/* =========================================== */
+/* CONTENIDO DE LA TARJETA (texto) */
+/* =========================================== */
+
+.movie-content {
+    padding: 12px;                     /* Relleno interno de 12px en todos lados */
+    flex-grow: 1;                      /* Ocupa todo el espacio disponible verticalmente */
+    display: flex;                     /* Flexbox para layout interno */
+    flex-direction: column;            /* Elementos apilados verticalmente */
+}
+
+/* Título de la película */
+.movie-title {
+    font-size: 0.9rem;                 /* Tamaño de fuente (~11.7px) */
+    font-weight: 700;                  /* Texto en negrita */
+    color: white;                      /* Color blanco */
+    margin-bottom: 2px;                /* Margen inferior pequeño de 2px */
+    line-height: 1.2;                  /* Espaciado entre líneas (120% del tamaño) */
+    display: -webkit-box;              /* Necesario para limitar líneas de texto */
+    -webkit-line-clamp: 2;             /* Muestra máximo 2 líneas de texto */
+    -webkit-box-orient: vertical;      /* Orientación vertical para el límite de líneas */
+    overflow: hidden;                  /* Oculta el texto que excede las 2 líneas */
+}
+
+/* Título en español */
+.movie-spanish {
+    font-size: 0.75rem;                /* Tamaño de fuente pequeño (~9.75px) */
+    font-weight: 400;                  /* Texto normal (no negrita) */
+    font-style: italic;                /* Texto en cursiva */
+    color: rgba(255, 255, 255, 0.7);   /* Color blanco con 70% de opacidad (gris claro) */
+    margin-bottom: 6px;                /* Margen inferior de 6px */
+}
+
+/* =========================================== */
+/* CONTENEDOR DE GÉNEROS (dentro de tarjeta) */
+/* =========================================== */
+
+.movie-genres {
+    display: flex;                     /* Flexbox para alinear etiquetas en fila */
+    flex-wrap: wrap;                   /* Permite que pasen a siguiente línea */
+    gap: 3px;                          /* Espacio entre etiquetas: 3px */
+    margin-bottom: 8px;                /* Margen inferior de 8px */
+}
+
+/* Cada etiqueta de género individual */
+.genre-tag {
+    font-size: 0.65rem;                /* Tamaño de fuente muy pequeño (~8.45px) */
+    font-weight: 400;                  /* Texto normal */
+    background: rgba(255, 255, 255, 0.08); /* Fondo blanco muy tenue (8% opacidad) */
+    padding: 2px 6px;                  /* Relleno pequeño: 2px arriba/abajo, 6px lados */
+    border-radius: 6px;                /* Esquinas redondeadas de 6px */
+    color: rgba(255, 255, 255, 0.9);   /* Texto blanco con 90% de opacidad */
+}
+
+/* =========================================== */
+/* BOTÓN "VER SINOPSIS" */
+/* =========================================== */
+
+.synopsis-btn {
+    width: 100%;                       /* Ancho completo del contenedor */
+    font-size: 0.75rem;                /* Tamaño de fuente pequeño (~9.75px) */
+    font-weight: 500;                  /* Grosor medio (entre normal y negrita) */
+    background: transparent;           /* Fondo transparente */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borde blanco semi-transparente */
+    color: white;                      /* Texto blanco */
+    padding: 8px;                      /* Relleno interno de 8px en todos lados */
+    border-radius: 8px;                /* Esquinas redondeadas de 8px */
+    cursor: pointer;                   /* Cursor de mano al pasar por encima */
+    margin-top: auto;                  /* Empuja el botón hacia abajo (lo pega al fondo) */
+}
+
+/* =========================================== */
+/* CONTENEDOR DEL BOTÓN "MOSTRAR MÁS" */
+/* =========================================== */
+
+.show-more-container {
+    grid-column: 1 / -1;               /* Ocupa todas las columnas de la grid */
+    text-align: center;                /* Centra el contenido horizontalmente */
+    padding: 25px 15px 40px;           /* Relleno: 25px arriba, 15px lados, 40px abajo */
+}
+
+/* =========================================== */
+/* BOTÓN "MOSTRAR MÁS" */
+/* =========================================== */
+
+.show-more-btn {
+    background: linear-gradient(135deg, rgba(66, 5, 57, 0.9), rgba(70, 36, 105, 0.9)); /* Degradado azul-violeta */
+    border: none;                      /* Sin borde */
+    color: white;                      /* Texto blanco */
+    padding: 14px 32px;                /* Relleno: 14px arriba/abajo, 32px lados */
+    border-radius: 12px;               /* Esquinas muy redondeadas (12px) */
+    font-size: 1rem;                   /* Tamaño de fuente normal (13px) */
+    font-weight: 700;                  /* Texto en negrita */
+    cursor: pointer;                   /* Cursor de mano al pasar */
+    transition: all 0.3s;              /* Transición suave de 0.3 segundos para todos los cambios */
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); /* Sombra azul semi-transparente */
+    display: inline-flex;              /* Flexbox inline para alinear contenido */
+    align-items: center;               /* Centra verticalmente el contenido */
+    gap: 10px;                         /* Espacio entre elementos internos: 10px */
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+.show-more-btn:hover {
+    transform: translateY(-2px);       /* Se mueve 2px hacia arriba */
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4); /* Sombra más grande y visible */
+}
+
+/* Efecto al hacer clic en el botón */
+.show-more-btn:active {
+    transform: translateY(0);          /* Vuelve a su posición original */
+}
+
+/* Flecha después del texto del botón */
+.show-more-btn::after {
+    content: '↓';                      /* Agrega una flecha hacia abajo */
+    font-size: 1.2rem;                 /* Flecha un poco más grande que el texto */
+}
+
+/* =========================================== */
+/* CONTADOR DE PELÍCULAS */
+/* =========================================== */
+
+.movies-count {
+    grid-column: 1 / -1;               /* Ocupa todas las columnas de la grid */
+    text-align: center;                /* Texto centrado */
+    padding: 18px;                     /* Relleno de 18px en todos lados */
+    color: rgba(255, 255, 255, 0.8);   /* Texto blanco con 80% de opacidad */
+    font-size: 0.95rem;                /* Tamaño de fuente casi normal (~12.35px) */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea superior blanca tenue */
+    margin-top: 15px;                  /* Margen superior de 15px */
+    background: rgba(20, 20, 20, 0.5); /* Fondo gris muy oscuro semi-transparente */
+    border-radius: 8px;                /* Esquinas redondeadas de 8px */
+    margin: 20px 10px 0;               /* Margen: 20px arriba, 10px lados, 0 abajo */
+}
+
+/* =========================================== */
+/* MODAL (VENTANA EMERGENTE) */
+/* =========================================== */
+
+.synopsis-modal {
+    display: none;                     /* Oculto por defecto (se muestra con JavaScript) */
+    position: fixed;                   /* Posición fija en la pantalla */
+    top: 0; left: 0; right: 0; bottom: 0; /* Ocupa toda la pantalla */
+    background: rgba(0, 0, 0, 0.97);  /* Fondo negro casi opaco (97% opaco) */
+    z-index: 1000;                     /* Muy por encima de otros elementos */
+    overflow-y: auto;                  /* Permite scroll vertical si el contenido es largo */
+}
+
+/* Contenido interno del modal */
+.modal-content {
+    background: rgba(20, 20, 20, 0.98); /* Fondo gris muy oscuro casi opaco */
+    min-height: 100vh;                 /* Mínimo toda la altura de la pantalla */
+}
+
+/* Cabecera del modal */
+.modal-header {
+    padding: 18px 15px;                /* Relleno igual que el header principal */
+    display: flex;                     /* Flexbox para alinear elementos */
+    justify-content: space-between;    /* Espacio entre título y botón de cerrar */
+    align-items: center;               /* Centra verticalmente los elementos */
+    background: rgba(25, 25, 25, 0.95); /* Fondo similar al header principal */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria */
+}
+
+/* Título del modal */
+.modal-title {
+    font-size: 1.2rem;                 /* Tamaño de fuente mediano (~15.6px) */
+    font-weight: 700;                  /* Texto en negrita */
+    color: white;                      /* Texto blanco */
+}
+
+/* Botón para cerrar el modal */
+.close-btn {
+    background: transparent;           /* Fondo transparente */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borde blanco semi-transparente */
+    color: white;                      /* Texto blanco */
+    width: 36px;                       /* Ancho fijo de 36px */
+    height: 36px;                      /* Alto fijo de 36px (cuadrado) */
+    border-radius: 50%;                /* Forma circular (50% del tamaño = círculo) */
+    font-size: 1.3rem;                 /* Tamaño de fuente grande para la "X" */
+    font-weight: 400;                  /* Texto normal */
+    cursor: pointer;                   /* Cursor de mano */
+    display: flex;                     /* Flexbox para centrar la "X" */
+    align-items: center;               /* Centra verticalmente */
+    justify-content: center;           /* Centra horizontalmente */
+}
+
+/* Cuerpo del modal (contenido principal) */
+.modal-body {
+    padding: 20px 15px;                /* Relleno interno */
+}
+
+/* Contenedor de imagen en el modal */
+.modal-image-container {
+    width: 100%;                       /* Ancho completo */
+    max-width: 350px;                  /* Ancho máximo de 350px */
+    height: 350px;                     /* Altura fija de 350px (cuadrado) */
+    margin: 0 auto 20px;               /* Margen: centrado horizontal, 20px abajo */
+    border-radius: 12px;               /* Esquinas redondeadas de 12px */
+    overflow: hidden;                  /* Oculta partes de imagen que sobresalgan */
+    background: transparent;           /* Sin fondo */
+}
+
+/* Imagen dentro del modal */
+.modal-image {
+    width: 100%;                       /* Ancho completo del contenedor */
+    height: 100%;                      /* Alto completo del contenedor */
+    object-fit: cover;                 /* Cubre el contenedor manteniendo proporción */
+    display: block;                    /* Elimina espacio inferior */
+    border-radius: 10px;               /* Esquinas ligeramente redondeadas */
+}
+
+/* Título original en el modal */
+.modal-original-title {
+    font-size: 1.6rem;                 /* Tamaño grande (~20.8px) */
+    font-weight: 800;                  /* Texto extra negrita */
+    color: white;                      /* Texto blanco */
+    margin-bottom: 4px;                /* Pequeño margen inferior */
+    line-height: 1.2;                  /* Espaciado entre líneas */
+}
+
+/* Título en español en el modal */
+.modal-spanish-title {
+    font-size: 1.2rem;                 /* Tamaño mediano (~15.6px) */
+    color: rgba(255, 255, 255, 0.8);   /* Texto blanco con 80% de opacidad */
+    margin-bottom: 12px;               /* Margen inferior de 12px */
+    font-style: italic;                /* Texto en cursiva */
+}
+
+/* Año en el modal */
+.modal-year {
+    display: inline-block;             /* Se comporta como bloque pero en línea */
+    background: rgba(72, 187, 120, 0.95); /* Fondo verde similar al badge */
+    color: white;                      /* Texto blanco */
+    padding: 6px 12px;                 /* Relleno interno */
+    border-radius: 10px;               /* Esquinas redondeadas de 10px */
+    font-size: 0.85rem;                /* Tamaño de fuente pequeño (~11.05px) */
+    font-weight: 600;                  /* Texto semi-negrita */
+    margin-bottom: 15px;               /* Margen inferior de 15px */
+}
+
+/* Contenedor de géneros en el modal */
+.modal-genres {
+    display: flex;                     /* Flexbox para etiquetas en fila */
+    flex-wrap: wrap;                   /* Permite pasar a siguiente línea */
+    gap: 6px;                          /* Espacio entre etiquetas: 6px */
+    margin-bottom: 20px;               /* Margen inferior de 20px */
+}
+
+/* Cada etiqueta de género en el modal */
+.modal-genre-tag {
+    background: rgba(255, 255, 255, 0.1); /* Fondo blanco muy tenue */
+    padding: 5px 10px;                 /* Relleno interno */
+    border-radius: 8px;                /* Esquinas redondeadas de 8px */
+    font-size: 0.8rem;                 /* Tamaño de fuente pequeño (~10.4px) */
+    color: rgba(255, 255, 255, 0.9);   /* Texto blanco con 90% de opacidad */
+}
+
+/* Título de sección "Sinopsis" en el modal */
+.modal-section-title {
+    font-size: 1.1rem;                 /* Tamaño de fuente (~14.3px) */
+    font-weight: 700;                  /* Texto en negrita */
+    color: white;                      /* Texto blanco */
+    margin-bottom: 10px;               /* Margen inferior de 10px */
+    padding-bottom: 6px;               /* Relleno inferior de 6px */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Línea divisoria */
+}
+
+/* Texto de la sinopsis en el modal */
+.modal-synopsis {
+    font-size: 0.95rem;                /* Tamaño de fuente (~12.35px) */
+    line-height: 1.5;                  /* Espaciado entre líneas amplio (150%) */
+    color: rgba(255, 255, 255, 0.9);   /* Texto blanco con 90% de opacidad */
+    padding: 15px;                     /* Relleno interno */
+    background: rgba(255, 255, 255, 0.05); /* Fondo blanco muy tenue (5% opacidad) */
+    border-radius: 10px;               /* Esquinas redondeadas de 10px */
+}
+
+/* =========================================== */
+/* ESTADOS DE CARGA Y SIN RESULTADOS */
+/* =========================================== */
+
+/* Indicador de carga (mientras se cargan películas) */
+.loading-indicator {
+    grid-column: 1 / -1;               /* Ocupa todas las columnas */
+    text-align: center;                /* Texto centrado */
+    padding: 40px;                     /* Relleno generoso */
+    color: rgba(255, 255, 255, 0.6);   /* Texto gris claro */
+    font-size: 1rem;                   /* Tamaño de fuente normal */
+}
+
+/* Mensaje cuando no hay resultados */
+.no-results {
+    grid-column: 1 / -1;               /* Ocupa todas las columnas */
+    text-align: center;                /* Texto centrado */
+    padding: 50px 20px;                /* Relleno generoso: 50px arriba/abajo, 20px lados */
+    color: rgba(255, 255, 255, 0.6);   /* Texto gris claro */
+}
+
+.no-results h3 {
+    font-size: 1.3rem;                 /* Título grande */
+    margin-bottom: 10px;               /* Margen inferior */
+    color: white;                      /* Texto blanco */
+}
+
+/* =========================================== */
+/* MEDIA QUERIES - RESPONSIVE DESIGN */
+/* =========================================== */
+
+/* Para tablets y pantallas medianas (mínimo 768px de ancho) */
+@media (min-width: 768px) {
+    html {
+        font-size: 14px;               /* Aumenta tamaño base a 14px */
+    }
+    
+    .movies-container {
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas en lugar de 2 */
+        gap: 12px;                     /* Espacio un poco mayor entre tarjetas */
+        padding: 0 20px 70px;          /* Más padding a los lados y abajo */
+    }
+    
+    .movie-image-container {
+        height: 190px;                 /* Imágenes un poco más altas */
+    }
+    
+    .modal-image-container {
+        max-width: 400px;              /* Modal un poco más ancho */
+        height: 400px;                 /* Imagen del modal más grande */
+    }
+}
+
+/* Para pantallas grandes y escritorio (mínimo 1024px de ancho) */
+@media (min-width: 1024px) {
+    .movies-container {
+        grid-template-columns: repeat(4, 1fr); /* 4 columnas en escritorio */
+        max-width: 1200px;             /* Ancho máximo del contenido */
+        margin: 0 auto;                /* Centra el contenedor horizontalmente */
+        padding-bottom: 80px;          /* Más espacio abajo */
+    }
+    
+    .modal-content {
+        max-width: 500px;              /* Modal más ancho en escritorio */
+        margin: 40px auto;             /* Centrado con margen arriba/abajo */
+        min-height: auto;              /* Altura automática (no toda la pantalla) */
+        border-radius: 15px;           /* Esquinas más redondeadas */
+        overflow: hidden;              /* Oculta contenido que sobresalga */
+    }
+    
+    .modal-image-container {
+        max-width: 450px;              /* Imagen aún más grande */
+        height: 450px;                 /* Imagen cuadrada más grande */
+    }
+}
+
+/* =========================================== */
+/* RESPONSIVE ESPECÍFICO PARA BOTÓN */
+/* =========================================== */
+
+/* Para móviles pequeños (máximo 480px de ancho) */
+@media (max-width: 480px) {
+    .show-more-btn {
+        width: 90%;                    /* Botón casi del ancho completo */
+        padding: 16px;                 /* Relleno adaptado a pantallas pequeñas */
+    }
+    
+    .movies-count {
+        font-size: 0.85rem;            /* Texto un poco más pequeño */
+        padding: 15px 10px;            /* Menos relleno en los lados */
+    }
+}
