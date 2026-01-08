@@ -30,7 +30,7 @@ body {
     background-image: 
         radial-gradient(circle at 20% 80%, rgba(255,255,255,0.05) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%),
-        linear-gradient(315deg, rgb(21, 10, 25), rgb(35, 25, 20), rgb(10, 10, 45));
+        linear-gradient(315deg, rgb(20, 5, 27), rgb(41, 5, 5), rgb(18, 11, 45));
     background-attachment: fixed;
     background-size: cover; 
 }
@@ -125,9 +125,9 @@ body {
 
 /* Botón de género cuando está activo/seleccionado */
 .genre-btn.active {
-    background: linear-gradient(135deg, rgba(16, 11, 39, 0.9), rgba(61, 18, 18, 0.9)); /* Fondo azul violeta semi-transparente */
+    background: rgba(255, 255, 255, 0); /* Fondo azul violeta semi-transparente */
     border-color: rgba(208, 216, 251, 0.993); /* Borde azul violeta */
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.13); ; 
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.227); ; 
 }
 
 /* =========================================== */
@@ -183,7 +183,7 @@ body {
     top: 8px;                          /* 8px desde la parte superior */
     right: 8px;                        /* 8px desde la derecha */
     font-weight: 700;                  /* Texto en negrita */
-    background: rgba(23, 5, 51, 0.95); /* Fondo verde semi-transparente */
+    background: rgba(18, 4, 41, 0.95); /* Fondo verde semi-transparente */
     color: white;                      /* Texto blanco */
     padding: 3px 8px;                  /* Relleno: 3px arriba/abajo, 8px lados */
     border-radius: 8px;                /* Esquinas redondeadas de 8px */
@@ -267,8 +267,8 @@ body {
 /* =========================================== */
 
 .show-more-container {
+     text-align: center;                /* Centra el contenido horizontalmente */
     grid-column: 1 / -1;               /* Ocupa todas las columnas de la grid */
-    text-align: center;                /* Centra el contenido horizontalmente */
     padding: 25px 15px 40px;           /* Relleno: 25px arriba, 15px lados, 40px abajo */
 }
 
@@ -277,8 +277,9 @@ body {
 /* =========================================== */
 
 .show-more-btn {
-    background: linear-gradient(135deg, rgba(66, 5, 57, 0.9), rgba(70, 36, 105, 0.9)); /* Degradado azul-violeta */
-    border: none;                      /* Sin borde */
+    text-align: center;              /* Centra verticalmente el contenido */
+    background: rgba(255, 255, 255, 0); /* Fondo azul violeta semi-transparente */
+    border: 1px solid white;                      /* Sin borde */
     color: white;                      /* Texto blanco */
     padding: 14px 32px;                /* Relleno: 14px arriba/abajo, 32px lados */
     border-radius: 12px;               /* Esquinas muy redondeadas (12px) */
@@ -286,9 +287,7 @@ body {
     font-weight: 700;                  /* Texto en negrita */
     cursor: pointer;                   /* Cursor de mano al pasar */
     transition: all 0.3s;              /* Transición suave de 0.3 segundos para todos los cambios */
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); /* Sombra azul semi-transparente */
-    display: inline-flex;              /* Flexbox inline para alinear contenido */
-    align-items: center;               /* Centra verticalmente el contenido */
+    
     gap: 10px;                         /* Espacio entre elementos internos: 10px */
 }
 
@@ -303,11 +302,7 @@ body {
     transform: translateY(0);          /* Vuelve a su posición original */
 }
 
-/* Flecha después del texto del botón */
-.show-more-btn::after {
-    content: '↓';                      /* Agrega una flecha hacia abajo */
-    font-size: 1.2rem;                 /* Flecha un poco más grande que el texto */
-}
+
 
 /* =========================================== */
 /* CONTADOR DE PELÍCULAS */
@@ -341,7 +336,12 @@ body {
 
 /* Contenido interno del modal */
 .modal-content {
-    background: rgba(20, 20, 20, 0.98); /* Fondo gris muy oscuro casi opaco */
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%),
+        linear-gradient(315deg, rgb(20, 5, 27), rgb(41, 5, 5), rgb(18, 11, 45));
+    background-attachment: fixed;
+    background-size: cover;
     min-height: 100vh;                 /* Mínimo toda la altura de la pantalla */
 }
 
@@ -351,8 +351,8 @@ body {
     display: flex;                     /* Flexbox para alinear elementos */
     justify-content: space-between;    /* Espacio entre título y botón de cerrar */
     align-items: center;               /* Centra verticalmente los elementos */
-    background: rgba(25, 25, 25, 0.95); /* Fondo similar al header principal */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria */
+    background: rgba(25, 25, 25, 0); /* Fondo similar al header principal */
+    border-bottom: 1px solid rgba(255, 255, 255, 0); /* Línea divisoria */
 }
 
 /* Título del modal */
@@ -423,7 +423,7 @@ body {
 /* Año en el modal */
 .modal-year {
     display: inline-block;             /* Se comporta como bloque pero en línea */
-    background: rgba(72, 187, 120, 0.95); /* Fondo verde similar al badge */
+    background:rgba(18, 4, 41, 0.95); /* Fondo verde similar al badge */
     color: white;                      /* Texto blanco */
     padding: 6px 12px;                 /* Relleno interno */
     border-radius: 10px;               /* Esquinas redondeadas de 10px */
@@ -442,8 +442,9 @@ body {
 
 /* Cada etiqueta de género en el modal */
 .modal-genre-tag {
-    background: rgba(255, 255, 255, 0.1); /* Fondo blanco muy tenue */
+    background: rgba(255, 255, 255, 0); /* Fondo blanco muy tenue */
     padding: 5px 10px;                 /* Relleno interno */
+     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 8px;                /* Esquinas redondeadas de 8px */
     font-size: 0.8rem;                 /* Tamaño de fuente pequeño (~10.4px) */
     color: rgba(255, 255, 255, 0.9);   /* Texto blanco con 90% de opacidad */
