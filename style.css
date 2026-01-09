@@ -207,7 +207,7 @@ body {
 
 /* Título de la película */
 .movie-title {
-  .movie-title {
+  
     font-size: 0.9rem;
     font-weight: 700;
     color: white;
@@ -216,7 +216,7 @@ body {
     white-space: normal;      /* Permite que el texto haga saltos de línea */
     word-wrap: break-word;    /* Rompe palabras largas si es necesario */
     overflow-wrap: break-word; /* Otra propiedad para romper palabras */
-}
+
 }
 
 /* Título en español */
