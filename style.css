@@ -30,7 +30,7 @@ body {
     background-image: 
         radial-gradient(circle at 20% 80%, rgba(255,255,255,0.05) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%),
-        linear-gradient(315deg, rgb(20, 5, 27), rgb(41, 5, 5), rgb(18, 11, 45));
+        linear-gradient(315deg, rgb(94, 39, 118), rgb(16, 12, 40), rgb(27, 8, 106));
     background-attachment: fixed;
     background-size: cover; 
 }
@@ -50,11 +50,15 @@ body {
 /* =========================================== */
 
 .header {
-    text-align: center;        /* Centra el texto horizontalmente */
-    padding: 18px 15px 15px;   /* Relleno: arriba 18px, lados 15px, abajo 15px */
-    background:  rgba(86, 96, 12, 0); /* Fondo negro semi-transparente (95% opaco) */
-    position: relative;  
-    font-family: 'Times New Roman', Times, serif;      /* Posicionamiento para posibles elementos absolutos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px 50px;
+}
+
+.logo {
+    height: 200px;      /* ← CAMBIA ESTE NÚMERO hasta que se vea bien */
+    width: auto;
 }
 
 .header h1 {
@@ -147,7 +151,7 @@ body {
 
 .movie-card {
     background: rgba(25, 25, 25, 0); /* Fondo gris oscuro semi-transparente */
-    border: 1px solid rgba(255, 255, 255, 0.08); /* Borde blanco muy tenue */
+    border: 3px solid rgba(255, 255, 255, 0.08); /* Borde blanco muy tenue */
     border-radius: 10px;               /* Esquinas redondeadas de 10px */
     overflow: hidden;                  /* Oculta contenido que sobresale */
     display: flex;                     /* Flexbox para layout interno */
@@ -339,9 +343,9 @@ body {
     background-image: 
         radial-gradient(circle at 20% 80%, rgba(255,255,255,0.05) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%),
-        linear-gradient(315deg, rgb(20, 5, 27), rgb(41, 5, 5), rgb(18, 11, 45));
+        linear-gradient(315deg, rgb(94, 39, 118), rgb(16, 12, 40), rgb(27, 8, 106));
     background-attachment: fixed;
-    background-size: cover;
+    background-size: cover; 
     min-height: 100vh;                 /* Mínimo toda la altura de la pantalla */
 }
 
@@ -561,4 +565,23 @@ body {
         font-size: 0.85rem;            /* Texto un poco más pequeño */
         padding: 15px 10px;            /* Menos relleno en los lados */
     }
+}
+.scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(102, 126, 234, 0.9);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    z-index: 100;
+}
+
+.scroll-top.show {
+    display: block;
 }
